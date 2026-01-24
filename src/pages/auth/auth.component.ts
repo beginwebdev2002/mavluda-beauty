@@ -3,13 +3,13 @@ import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // Inline template used to ensure functionality in Applet environment while maintaining clean separation
   template: `
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#F5F5F0] to-[#EAE0C8] p-4">
       <div class="w-full max-w-md bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden border border-white/40">
@@ -23,14 +23,32 @@ import { Router } from '@angular/router';
           </div>
           <h1 class="text-3xl text-gray-900 mb-2">Mavluda Beauty</h1>
           <p class="text-gray-500 font-sans text-sm tracking-wide uppercase">Medical Luxury Ecosystem</p>
+          
+          <!-- Role Toggle -->
+          <div class="mt-6 inline-flex p-1 bg-gray-100 rounded-lg">
+             <button 
+               (click)="setRole('client')"
+               [class.bg-white]="authService.currentUserRole() === 'client'"
+               [class.shadow-sm]="authService.currentUserRole() === 'client'"
+               [class.text-gold-dark]="authService.currentUserRole() === 'client'"
+               class="px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 text-gray-500"
+             >Client</button>
+             <button 
+               (click)="setRole('admin')"
+               [class.bg-white]="authService.currentUserRole() === 'admin'"
+               [class.shadow-sm]="authService.currentUserRole() === 'admin'"
+               [class.text-gold-dark]="authService.currentUserRole() === 'admin'"
+               class="px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-200 text-gray-500"
+             >Admin</button>
+          </div>
         </div>
 
         <!-- Login Form -->
         <div class="p-8 pt-6">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
             
             <!-- Email Input -->
-            <div class="space-y-2">
+            <div class="flex flex-col gap-2">
               <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
               <div class="relative">
                 <input 
@@ -38,7 +56,7 @@ import { Router } from '@angular/router';
                   type="email" 
                   formControlName="email"
                   class="block w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 text-sm focus:ring-gold focus:border-gold transition-all duration-200 outline-none placeholder-gray-400"
-                  placeholder="admin@mavluda.beauty"
+                  placeholder="name@example.com"
                 >
                 @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
                   <div class="absolute right-3 top-3 text-red-500">
@@ -49,7 +67,7 @@ import { Router } from '@angular/router';
             </div>
 
             <!-- Password Input -->
-            <div class="space-y-2">
+            <div class="flex flex-col gap-2">
               <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
               <div class="relative">
                 <input 
@@ -95,7 +113,7 @@ import { Router } from '@angular/router';
                 </svg>
                 Authenticating...
               } @else {
-                Sign In
+                Sign In as {{ authService.currentUserRole() | titlecase }}
               }
             </button>
           </form>
@@ -113,14 +131,19 @@ import { Router } from '@angular/router';
 export class AuthComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  public authService = inject(AuthService);
   
   isLoading = signal(false);
   showPassword = signal(false);
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]]
+    email: ['admin@mavluda.beauty', [Validators.required, Validators.email]],
+    password: ['password123', [Validators.required, Validators.minLength(6)]]
   });
+
+  setRole(role: 'admin' | 'client') {
+    this.authService.currentUserRole.set(role);
+  }
 
   togglePassword() {
     this.showPassword.update(v => !v);
@@ -132,8 +155,13 @@ export class AuthComponent {
       // Simulate API call
       setTimeout(() => {
         this.isLoading.set(false);
-        this.router.navigate(['/dashboard']);
-      }, 1500);
+        const role = this.authService.currentUserRole();
+        if (role === 'admin') {
+            this.router.navigate(['/admin/dashboard']);
+        } else {
+            this.router.navigate(['/user/home']);
+        }
+      }, 1000);
     } else {
       this.loginForm.markAllAsTouched();
     }

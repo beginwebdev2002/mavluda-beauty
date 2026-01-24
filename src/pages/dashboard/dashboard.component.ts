@@ -1,8 +1,6 @@
 
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from '../../widgets/sidebar/sidebar.component';
-import { HeaderComponent } from '../../widgets/header/header.component';
 
 interface StatCard {
   title: string;
@@ -15,97 +13,81 @@ interface StatCard {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, HeaderComponent],
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex h-screen overflow-hidden bg-[#F8F8F8]">
-      
-      <!-- Sidebar Widget -->
-      <app-sidebar class="hidden md:flex"></app-sidebar>
+    <div>
+      <div class="mb-8">
+        <h1 class="text-2xl font-serif text-gray-900">Welcome back, Mavluda</h1>
+        <p class="text-sm text-gray-500 mt-1">Here is what's happening in your ecosystem today.</p>
+      </div>
 
-      <!-- Main Content Area -->
-      <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
-        
-        <!-- Header Widget -->
-        <app-header></app-header>
-
-        <!-- Scrollable Content -->
-        <main class="flex-1 overflow-y-auto p-8">
-          
-          <div class="mb-8">
-            <h1 class="text-2xl font-serif text-gray-900">Welcome back, Mavluda</h1>
-            <p class="text-sm text-gray-500 mt-1">Here is what's happening in your ecosystem today.</p>
-          </div>
-
-          <!-- Stats Grid -->
-          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-            @for (stat of stats(); track stat.title) {
-              <div class="bg-white overflow-hidden rounded-xl shadow-sm border border-gray-100 p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
-                <div class="flex items-center">
-                  <div class="flex-shrink-0 p-3 rounded-lg bg-gold-50 text-gold-dark" [innerHTML]="stat.icon"></div>
-                  <div class="ml-5 w-0 flex-1">
-                    <dl>
-                      <dt class="text-sm font-medium text-gray-500 truncate">{{ stat.title }}</dt>
-                      <dd>
-                        <div class="text-xl font-bold text-gray-900">{{ stat.value }}</div>
-                      </dd>
-                    </dl>
-                  </div>
-                </div>
-                <div class="mt-4">
-                  <div class="flex items-center text-sm">
-                    <span [class]="stat.trendUp ? 'text-green-600' : 'text-red-600'" class="flex items-center font-medium">
-                      @if (stat.trendUp) {
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                      } @else {
-                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
-                      }
-                      {{ stat.trend }}
-                    </span>
-                    <span class="text-gray-400 ml-2">from last month</span>
-                  </div>
-                </div>
-              </div>
-            }
-          </div>
-
-          <!-- Content Placeholder (Chart Area) -->
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Main Chart Area -->
-            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-              <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-medium leading-6 text-gray-900 font-serif">Revenue Overview</h3>
-                <button class="text-sm text-gold hover:text-gold-dark font-medium">View Report</button>
-              </div>
-              <div class="h-64 bg-gray-50 rounded-lg flex items-center justify-center border border-dashed border-gray-200">
-                <p class="text-gray-400">Chart Visualization Widget Placeholder</p>
+      <!-- Stats Grid -->
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+        @for (stat of stats(); track stat.title) {
+          <div class="bg-white overflow-hidden rounded-xl shadow-sm border border-gray-100 p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
+            <div class="flex items-center">
+              <div class="flex-shrink-0 p-3 rounded-lg bg-gold-50 text-gold-dark" [innerHTML]="stat.icon"></div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">{{ stat.title }}</dt>
+                  <dd>
+                    <div class="text-xl font-bold text-gray-900">{{ stat.value }}</div>
+                  </dd>
+                </dl>
               </div>
             </div>
-
-            <!-- Recent Activity -->
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-              <h3 class="text-lg font-medium leading-6 text-gray-900 font-serif mb-6">Recent Activity</h3>
-              <ul class="space-y-6">
-                <li class="relative pl-6 border-l-2 border-gray-200">
-                  <div class="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-gold border-2 border-white"></div>
-                  <p class="text-sm text-gray-600">New appointment booked by <span class="font-medium text-gray-900">Sarah J.</span></p>
-                  <p class="text-xs text-gray-400 mt-0.5">2 mins ago</p>
-                </li>
-                <li class="relative pl-6 border-l-2 border-gray-200">
-                  <div class="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-gray-300 border-2 border-white"></div>
-                  <p class="text-sm text-gray-600">Inventory alert: <span class="font-medium text-gray-900">Botox Vials</span> low.</p>
-                  <p class="text-xs text-gray-400 mt-0.5">1 hour ago</p>
-                </li>
-                <li class="relative pl-6 border-l-2 border-gray-200">
-                  <div class="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-gray-300 border-2 border-white"></div>
-                  <p class="text-sm text-gray-600">Payment received from <span class="font-medium text-gray-900">Dresses Rental</span>.</p>
-                  <p class="text-xs text-gray-400 mt-0.5">3 hours ago</p>
-                </li>
-              </ul>
+            <div class="mt-4">
+              <div class="flex items-center text-sm">
+                <span [class]="stat.trendUp ? 'text-green-600' : 'text-red-600'" class="flex items-center font-medium">
+                  @if (stat.trendUp) {
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                  } @else {
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>
+                  }
+                  {{ stat.trend }}
+                </span>
+                <span class="text-gray-400 ml-2">from last month</span>
+              </div>
             </div>
           </div>
+        }
+      </div>
 
-        </main>
+      <!-- Content Placeholder (Chart Area) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Chart Area -->
+        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-lg font-medium leading-6 text-gray-900 font-serif">Revenue Overview</h3>
+            <button class="text-sm text-gold hover:text-gold-dark font-medium">View Report</button>
+          </div>
+          <div class="h-64 bg-gray-50 rounded-lg flex items-center justify-center border border-dashed border-gray-200">
+            <p class="text-gray-400">Chart Visualization Widget Placeholder</p>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <h3 class="text-lg font-medium leading-6 text-gray-900 font-serif mb-6">Recent Activity</h3>
+          <ul class="space-y-6">
+            <li class="relative pl-6 border-l-2 border-gray-200">
+              <div class="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-gold border-2 border-white"></div>
+              <p class="text-sm text-gray-600">New appointment booked by <span class="font-medium text-gray-900">Sarah J.</span></p>
+              <p class="text-xs text-gray-400 mt-0.5">2 mins ago</p>
+            </li>
+            <li class="relative pl-6 border-l-2 border-gray-200">
+              <div class="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-gray-300 border-2 border-white"></div>
+              <p class="text-sm text-gray-600">Inventory alert: <span class="font-medium text-gray-900">Botox Vials</span> low.</p>
+              <p class="text-xs text-gray-400 mt-0.5">1 hour ago</p>
+            </li>
+            <li class="relative pl-6 border-l-2 border-gray-200">
+              <div class="absolute -left-[5px] top-1 h-2.5 w-2.5 rounded-full bg-gray-300 border-2 border-white"></div>
+              <p class="text-sm text-gray-600">Payment received from <span class="font-medium text-gray-900">Dresses Rental</span>.</p>
+              <p class="text-xs text-gray-400 mt-0.5">3 hours ago</p>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   `
