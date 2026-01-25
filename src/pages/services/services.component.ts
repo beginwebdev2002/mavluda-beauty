@@ -18,7 +18,7 @@ interface ServiceItem {
   imports: [CommonModule, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="space-y-6 relative">
+    <div class="space-y-6 relative animate-page-enter max-w-[1200px] mx-auto p-4 md:p-6 lg:p-0 lg:py-6">
       <!-- Header and Add Button -->
       <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-4">
         <div>
@@ -77,7 +77,7 @@ interface ServiceItem {
 
       <!-- Views -->
       @if (viewMode() === 'list') {
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden animate-fade-in">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden animate-page-enter">
           <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-100">
               <thead class="bg-gray-50">
@@ -134,7 +134,7 @@ interface ServiceItem {
         </div>
       } @else {
         <!-- Card View -->
-         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
+         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-page-enter">
            @for (service of filteredServices(); track service.id) {
              <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-gold hover:border-gold/30 transition-all duration-300 group flex flex-col h-full">
                 
@@ -183,7 +183,7 @@ interface ServiceItem {
 
       <!-- Edit Modal -->
       @if (isEditModalOpen()) {
-        <div class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 z-[100] overflow-y-auto" role="dialog" aria-modal="true">
           <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-fade-in" (click)="closeEditModal()"></div>
 
           <div class="flex min-h-screen items-center justify-center p-4">
@@ -204,7 +204,7 @@ interface ServiceItem {
                     <input type="text" [(ngModel)]="tempService.name" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
                   </div>
 
-                  <div class="grid grid-cols-2 gap-5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
                       <select [(ngModel)]="tempService.category" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
@@ -220,7 +220,7 @@ interface ServiceItem {
                     </div>
                   </div>
 
-                  <div class="grid grid-cols-2 gap-5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
                       <label class="block text-sm font-medium text-gray-700 mb-1.5">Duration</label>
                       <input type="text" [(ngModel)]="tempService.duration" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">

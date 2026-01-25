@@ -10,7 +10,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
   imports: [CommonModule, ReactiveFormsModule, LanguageSwitcherComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8 animate-page-enter">
       <!-- Header -->
       <div class="mb-10 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
         <div>

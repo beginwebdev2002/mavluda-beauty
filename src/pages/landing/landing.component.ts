@@ -93,7 +93,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
           </div>
         } @else {
           <!-- Active Content: Image Grid Background -->
-          <div class="absolute inset-0 grid grid-cols-4 grid-rows-3 gap-1 md:gap-2 opacity-0 animate-fade-in duration-1000">
+          <div class="absolute inset-0 grid grid-cols-4 grid-rows-3 gap-1 md:gap-2 opacity-0 animate-page-enter duration-1000">
              <!-- Main Image (Ken Burns) -->
             @if (heroImage(); as hero) {
               <div class="col-span-4 md:col-span-3 row-span-3 overflow-hidden relative">
@@ -138,7 +138,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white/50 animate-fade-in [animation-delay:1000ms]">
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white/50 animate-page-enter [animation-delay:1000ms]">
           <div class="flex flex-col items-center space-y-2 scroll-bounce">
             <span class="text-[10px] uppercase tracking-widest">Scroll</span>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>

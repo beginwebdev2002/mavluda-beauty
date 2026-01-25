@@ -11,7 +11,7 @@ interface Veil {
   material: string;
   tiers: string;
   edge: string;
-  price: string;
+  price: number;
   stock: number;
   image: string;
 }
@@ -23,7 +23,7 @@ interface Veil {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Main Page Content -->
-    <div class="space-y-8 animate-fade-in relative z-0">
+    <div class="space-y-8 animate-page-enter relative z-0">
       <!-- Header Section -->
       <div class="flex flex-col md:flex-row justify-between items-end gap-4">
         <div>
@@ -56,7 +56,7 @@ interface Veil {
                       </div>
                     </div>
                  </div>
-                 <span class="font-serif text-xl font-bold text-gray-900">{{ veil.price }}</span>
+                 <span class="font-serif text-xl font-bold text-gray-900">{{ veil.price }} TJS</span>
               </div>
 
               <!-- Title and SKU -->
@@ -98,12 +98,10 @@ interface Veil {
                     </span>
                     <span class="text-sm font-medium text-gray-600">{{ veil.stock > 0 ? veil.stock + ' Available' : 'Out of Stock' }}</span>
                  </div>
-                 <div class="flex items-center gap-3">
-                   <button (click)="openEditModal(veil)" class="text-gray-400 hover:text-gold transition-colors p-1" title="Edit">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-                   </button>
-                   <button class="text-gold hover:text-gold-dark text-[11px] font-bold uppercase tracking-[0.2em] hover:underline transition-all decoration-gold/50 underline-offset-4">DETAILS</button>
-                 </div>
+                 <button (click)="openEditModal(veil)" class="text-gold hover:text-gold-dark text-[11px] font-bold uppercase tracking-[0.2em] hover:underline transition-all decoration-gold/50 underline-offset-4 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                    DETAILS
+                 </button>
               </div>
             </div>
           </div>
@@ -134,11 +132,11 @@ interface Veil {
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div class="space-y-2">
                         <label class="block text-sm font-medium text-gray-700">Veil Name</label>
-                        <input type="text" [(ngModel)]="tempVeil.name" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        <input type="text" [(ngModel)]="tempVeil.name" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                       </div>
                        <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-700">Price</label>
-                        <input type="text" [(ngModel)]="tempVeil.price" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        <label class="block text-sm font-medium text-gray-700">Price (TJS)</label>
+                        <input type="number" [(ngModel)]="tempVeil.price" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                       </div>
                    </div>
 
@@ -146,11 +144,11 @@ interface Veil {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div class="space-y-2">
                         <label class="block text-sm font-medium text-gray-700">SKU</label>
-                        <input type="text" [(ngModel)]="tempVeil.sku" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        <input type="text" [(ngModel)]="tempVeil.sku" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                       </div>
                        <div class="space-y-2">
                         <label class="block text-sm font-medium text-gray-700">Stock Quantity</label>
-                        <input type="number" [(ngModel)]="tempVeil.stock" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        <input type="number" [(ngModel)]="tempVeil.stock" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                       </div>
                    </div>
 
@@ -168,15 +166,15 @@ interface Veil {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Length</label>
-                          <input type="text" [(ngModel)]="tempVeil.length" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                          <input type="text" [(ngModel)]="tempVeil.length" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                        </div>
                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Material</label>
-                          <input type="text" [(ngModel)]="tempVeil.material" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                          <input type="text" [(ngModel)]="tempVeil.material" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                        </div>
                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Tier</label>
-                           <select [(ngModel)]="tempVeil.tiers" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                           <select [(ngModel)]="tempVeil.tiers" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                              <option>Single</option>
                              <option>Double</option>
                              <option>Triple</option>
@@ -184,7 +182,7 @@ interface Veil {
                        </div>
                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Edge Finish</label>
-                          <input type="text" [(ngModel)]="tempVeil.edge" class="block w-full rounded-lg border-gray-300 bg-gray-50 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                          <input type="text" [(ngModel)]="tempVeil.edge" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
                        </div>
                     </div>
                 </div>
@@ -216,8 +214,26 @@ interface Veil {
 
           <!-- Modal Content -->
           <div class="relative z-[105] w-full h-full p-4 md:p-12 flex flex-col items-center justify-center pointer-events-none">
-              <div class="pointer-events-auto relative rounded-lg overflow-hidden shadow-2xl bg-transparent animate-slide-up">
-                 <img [src]="selectedImage()" alt="Veil Detail" class="max-w-full max-h-[85vh] object-contain shadow-2xl">
+              <!-- Image Container with Spinner -->
+              <div class="pointer-events-auto relative rounded-lg overflow-hidden shadow-2xl bg-transparent animate-slide-up flex items-center justify-center min-w-[300px] min-h-[300px]">
+                 
+                 <!-- Loading State -->
+                 @if (isImageLoading()) {
+                    <div class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+                        <div class="w-12 h-12 border-4 border-white/20 border-t-gold rounded-full animate-spin mb-3"></div>
+                        <p class="text-white/60 text-[10px] uppercase tracking-[0.2em] font-medium animate-pulse">Loading Asset</p>
+                    </div>
+                 }
+
+                 <img [src]="selectedImage()" 
+                      (load)="onImageLoad()"
+                      alt="Veil Detail" 
+                      class="max-w-full max-h-[85vh] object-contain shadow-2xl transition-all duration-700 ease-out"
+                      [class.opacity-0]="isImageLoading()"
+                      [class.scale-95]="isImageLoading()"
+                      [class.opacity-100]="!isImageLoading()"
+                      [class.scale-100]="!isImageLoading()"
+                 >
               </div>
               
               <p class="text-white/40 text-xs mt-6 font-medium tracking-[0.3em] uppercase animate-fade-in text-center">Mavluda Beauty • Wedding Collection</p>
@@ -236,7 +252,7 @@ export class VeilPageComponent {
       material: 'Italian Silk Tulle', 
       tiers: 'Single', 
       edge: 'Raw Cut', 
-      price: '$850', 
+      price: 850, 
       stock: 3,
       image: 'https://picsum.photos/seed/wedding_veil_royal/200/200' 
     },
@@ -248,7 +264,7 @@ export class VeilPageComponent {
       material: 'French Chantilly', 
       tiers: 'Double', 
       edge: 'Scalloped Lace', 
-      price: '$1,200', 
+      price: 1200, 
       stock: 1,
       image: 'https://picsum.photos/seed/bride_lace_vintage/200/200' 
     },
@@ -260,7 +276,7 @@ export class VeilPageComponent {
       material: 'Soft Illusion', 
       tiers: 'Single', 
       edge: 'Swarovski Crystal', 
-      price: '$450', 
+      price: 450, 
       stock: 8,
       image: 'https://picsum.photos/seed/crystal_veil/200/200' 
     },
@@ -272,7 +288,7 @@ export class VeilPageComponent {
       material: 'Stiff Netting', 
       tiers: 'Double', 
       edge: 'Satin Ribbon', 
-      price: '$280', 
+      price: 280, 
       stock: 12,
       image: 'https://picsum.photos/seed/modern_bride/200/200' 
     },
@@ -284,7 +300,7 @@ export class VeilPageComponent {
       material: 'English Net', 
       tiers: 'Single', 
       edge: 'Pearl Scatter', 
-      price: '$620', 
+      price: 620, 
       stock: 0,
       image: 'https://picsum.photos/seed/ethereal_wedding/200/200' 
     },
@@ -296,7 +312,7 @@ export class VeilPageComponent {
       material: 'Chiffon', 
       tiers: 'Single', 
       edge: 'Floral Applique', 
-      price: '$550', 
+      price: 550, 
       stock: 4,
       image: 'https://picsum.photos/seed/boho_wedding/200/200' 
     },
@@ -306,6 +322,7 @@ export class VeilPageComponent {
   
   // Edit Modal State
   isEditModalOpen = signal(false);
+  isImageLoading = signal(false);
   tempVeil: Veil = this.getEmptyVeil();
 
   getEmptyVeil(): Veil {
@@ -317,7 +334,7 @@ export class VeilPageComponent {
        material: '',
        tiers: 'Single',
        edge: '',
-       price: '',
+       price: 0,
        stock: 0,
        image: `https://picsum.photos/seed/veil_${Math.random()}/200/200`
     };
@@ -356,9 +373,15 @@ export class VeilPageComponent {
   openImageModal(imageUrl: string) {
     const largeImageUrl = imageUrl.replace('/200/200', '/1200/1200');
     this.selectedImage.set(largeImageUrl);
+    this.isImageLoading.set(true);
   }
 
   closeImageModal() {
     this.selectedImage.set(null);
+    this.isImageLoading.set(false);
+  }
+
+  onImageLoad() {
+    this.isImageLoading.set(false);
   }
 }

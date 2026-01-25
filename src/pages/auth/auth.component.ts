@@ -11,13 +11,13 @@ import { AuthService } from '../../shared/services/auth.service';
   imports: [CommonModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="min-h-screen flex items-center justify-center bg-[#0A0A0A] relative overflow-hidden">
+    <div class="min-h-screen flex items-center justify-center bg-[#0A0A0A] relative overflow-hidden animate-page-enter">
       
       <!-- Ambient Luxury Glow -->
       <div class="absolute top-0 left-1/4 w-96 h-96 bg-gold/10 rounded-full blur-[128px] pointer-events-none"></div>
       <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-[128px] pointer-events-none"></div>
 
-      <div class="w-full max-w-md relative z-10 animate-slide-up">
+      <div class="w-full max-w-md relative z-10 animate-page-enter">
         
         <!-- Brand Identity -->
         <div class="text-center mb-8">

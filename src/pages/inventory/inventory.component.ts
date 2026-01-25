@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="space-y-6">
+    <div class="space-y-6 animate-page-enter">
       <div class="flex justify-between items-center">
         <h2 class="text-3xl font-serif text-gray-900">Inventory Management</h2>
         <div class="flex space-x-3">

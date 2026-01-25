@@ -1,12 +1,13 @@
 
 import { Component, ChangeDetectionStrategy, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { LanguageSwitcherComponent } from '../../features/language-selection/language-switcher.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LanguageSwitcherComponent],
+  imports: [CommonModule, LanguageSwitcherComponent, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="h-20 bg-white border-b border-gray-100 flex items-center justify-between px-4 md:px-8 sticky top-0 z-40 shadow-sm">
@@ -39,6 +40,12 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
       <!-- Right Actions -->
       <div class="flex items-center space-x-3 md:space-x-6">
         
+        <!-- Client View Button -->
+        <a routerLink="/user/home" class="hidden md:flex items-center gap-2 px-4 py-2 text-xs font-bold text-gold border border-gold rounded-full hover:bg-gold hover:text-white transition-all duration-300 uppercase tracking-widest shadow-gold-sm hover:shadow-gold group">
+           <span>Client Site</span>
+           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+
         <!-- Notifications -->
         <button class="p-2.5 rounded-full text-gray-400 hover:text-gold hover:bg-gold-50 transition-all duration-200 relative group">
           <span class="absolute top-2.5 right-2.5 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white group-hover:animate-pulse"></span>

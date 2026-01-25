@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
+    <div class="animate-page-enter">
       <!-- Hero Section -->
       <section class="relative h-[500px] flex items-center justify-center bg-dark overflow-hidden">
         <div class="absolute inset-0 opacity-40">
