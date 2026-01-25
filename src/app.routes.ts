@@ -1,12 +1,11 @@
 
-
 import { Routes } from '@angular/router';
 import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AdminLayoutComponent } from './widgets/layouts/admin-layout.component';
 import { UserLayoutComponent } from './widgets/layouts/user-layout.component';
 import { ServicesPageComponent } from './pages/services/services.component';
-import { InventoryPageComponent } from './pages/inventory/inventory.component';
+import { VeilPageComponent } from './pages/veil/veil.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { LandingComponent } from './pages/landing/landing.component';
@@ -22,10 +21,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'veil', component: VeilPageComponent },
       { path: 'services', component: ServicesPageComponent },
-      { path: 'inventory', component: InventoryPageComponent },
-      // Placeholders for other routes
-      { path: 'appointments', component: DashboardComponent },
       { path: 'clients', component: DashboardComponent },
     ]
   },
