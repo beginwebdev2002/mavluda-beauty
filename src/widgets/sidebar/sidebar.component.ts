@@ -2,46 +2,66 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SafeHtmlPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <aside class="h-full bg-dark text-gray-400 flex flex-col w-64 border-r border-dark-border">
-      <!-- Logo Area -->
-      <div class="h-16 flex items-center px-6 border-b border-white/5">
-         <div class="w-8 h-8 bg-gold rounded-full flex items-center justify-center mr-3">
-             <span class="text-dark font-serif font-bold text-lg">M</span>
+    <aside class="h-full bg-[#050505] flex flex-col w-72 border-r border-[#1F1F1F] shadow-2xl relative z-20">
+      
+      <!-- Brand Header -->
+      <div class="h-20 flex items-center px-8 border-b border-[#1F1F1F] bg-[#0A0A0A]">
+         <div class="flex items-center gap-3">
+           <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-gold-600 flex items-center justify-center shadow-lg">
+             <span class="text-white font-serif font-bold text-lg">M</span>
+           </div>
+           <div class="flex flex-col">
+             <span class="text-white font-serif font-semibold tracking-wide text-lg leading-none">Mavluda</span>
+             <span class="text-[10px] uppercase text-gold/80 tracking-widest mt-1">Admin Console</span>
+           </div>
          </div>
-         <span class="text-white font-serif font-semibold tracking-wide">Mavluda</span>
       </div>
 
       <!-- Navigation -->
-      <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1">
+      <nav class="flex-1 overflow-y-auto py-8 px-4 space-y-2">
         @for (item of menuItems; track item.label) {
           <a 
             [routerLink]="item.route"
-            routerLinkActive="bg-white/5 text-gold border-r-2 border-gold"
+            routerLinkActive="bg-[#1A1A1A] text-gold border-l-[3px] border-gold shadow-gold-sm"
             [routerLinkActiveOptions]="{exact: false}"
-            class="group flex items-center px-3 py-3 text-sm font-medium rounded-md transition-all duration-200 hover:bg-white/5 hover:text-white"
+            class="group flex items-center px-4 py-3.5 text-sm font-medium rounded-r-lg transition-all duration-300 border-l-[3px] border-transparent hover:bg-[#121212] hover:text-white"
           >
-            <!-- Icons using SVG directly for reliability -->
-            <span class="mr-3 transition-colors duration-200" [class.text-gold]="item.isActive" [class.text-gray-500]="!item.isActive" [innerHTML]="item.icon"></span>
-            {{ item.label }}
+            <!-- Icon -->
+            <span 
+              class="mr-4 transition-colors duration-300 group-hover:text-gold group-hover:scale-110 transform" 
+              [class.text-gold]="item.isActive" 
+              [class.text-gray-500]="!item.isActive" 
+              [innerHTML]="item.icon | safeHtml">
+            </span>
+            
+            <span class="tracking-wide">{{ item.label }}</span>
+
+            <!-- Active Indicator Dot (Optional luxury touch) -->
+            <span class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-gold">•</span>
           </a>
         }
       </nav>
 
-      <!-- User Profile Snippet (Bottom) -->
-      <div class="p-4 border-t border-white/5">
-        <div class="flex items-center">
-          <img class="h-9 w-9 rounded-full border border-gold" src="https://picsum.photos/100/100" alt="Admin">
-          <div class="ml-3">
-            <p class="text-sm font-medium text-white">Mavluda A.</p>
-            <p class="text-xs font-medium text-gray-500 group-hover:text-gray-300">Super Admin</p>
+      <!-- User Profile (Bottom) -->
+      <div class="p-6 border-t border-[#1F1F1F] bg-[#0A0A0A]">
+        <div class="flex items-center gap-4 group cursor-pointer">
+          <div class="relative">
+             <img class="h-10 w-10 rounded-full border border-gray-700 group-hover:border-gold transition-colors" src="https://picsum.photos/100/100" alt="Admin">
+             <div class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-green-500 border-2 border-[#0A0A0A]"></div>
           </div>
+          <div class="flex-1">
+            <p class="text-sm font-medium text-white group-hover:text-gold transition-colors">Mavluda A.</p>
+            <p class="text-xs text-gray-500">Super Admin</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-600 group-hover:text-white transition-colors"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
         </div>
       </div>
     </aside>

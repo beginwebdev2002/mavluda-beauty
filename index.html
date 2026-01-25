@@ -4,40 +4,87 @@
   <meta charset="UTF-8">
   <title>Mavluda Beauty | Medical Luxury Ecosystem</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'Manrope', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
           colors: {
             gold: {
               DEFAULT: '#D4AF37',
-              light: '#E5C565',
-              dark: '#B59228',
               50: '#F9F5E8',
+              100: '#F4ECD3',
+              200: '#EADEAA',
+              300: '#DFC082',
+              400: '#D4AF37', // Primary
+              500: '#AA8C2C',
+              600: '#887023',
+              700: '#66541A',
+              800: '#443811',
+              900: '#221C09',
             },
             dark: {
               DEFAULT: '#0A0A0A',
               surface: '#121212',
-              border: '#2A2A2A'
+              card: '#18181B',
+              border: '#27272A',
+              muted: '#52525B'
             }
           },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
+          animation: {
+            'shimmer': 'shimmer 3s linear infinite',
+            'fade-in': 'fadeIn 0.5s ease-out forwards',
+            'slide-up': 'slideUp 0.5s ease-out forwards',
+            'progress': 'progress 1.5s ease-in-out infinite',
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' }
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(10px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' }
+            },
+            progress: {
+              '0%': { transform: 'translateX(-100%)' },
+              '50%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(100%)' }
+            }
+          },
+          boxShadow: {
+            'gold-sm': '0 1px 2px 0 rgba(212, 175, 55, 0.05)',
+            'gold': '0 4px 6px -1px rgba(212, 175, 55, 0.1), 0 2px 4px -1px rgba(212, 175, 55, 0.06)',
+            'gold-lg': '0 10px 15px -3px rgba(212, 175, 55, 0.1), 0 4px 6px -2px rgba(212, 175, 55, 0.05)',
           }
         }
       }
     }
   </script>
   <style>
-    body { font-family: 'Inter', sans-serif; background-color: #F8F8F8; }
+    body { font-family: 'Inter', sans-serif; background-color: #F8F8F8; -webkit-font-smoothing: antialiased; }
     h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+    
+    /* Custom Scrollbar for Luxury Feel */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
   </style>
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
     "rxjs": "https://esm.sh/rxjs@^7.8.1?conditions=es2015",
@@ -51,7 +98,10 @@
     "@angular/router": "https://esm.sh/@angular/router@^18.2.0?external=rxjs",
     "@angular/platform-browser": "https://esm.sh/@angular/platform-browser@^18.2.0?external=rxjs",
     "@angular/forms": "https://esm.sh/@angular/forms@^18.2.0?external=rxjs",
-    "@angular/common": "https://esm.sh/@angular/common@^18.2.0?external=rxjs"
+    "@angular/common": "https://esm.sh/@angular/common@^18.2.0?external=rxjs",
+    "crypto": "https://esm.sh/crypto@^1.0.1?external=rxjs",
+    "express": "https://esm.sh/express@^5.2.1?external=rxjs",
+    "@nestjs/common": "https://esm.sh/@nestjs/common@^11.1.12?external=rxjs"
   }
 }
 </script>
