@@ -1,5 +1,6 @@
 
 
+
 import { Routes } from '@angular/router';
 import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -12,6 +13,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { LandingComponent } from './pages/landing/landing.component';
 import { ServicesCatalogComponent } from './pages/services-catalog/services-catalog.component';
 import { PortfolioPageComponent } from './pages/portfolio/portfolio.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -39,6 +41,7 @@ export const routes: Routes = [
       { path: 'home', component: UserHomeComponent },
       { path: 'services', component: ServicesCatalogComponent },
       { path: 'portfolio', component: PortfolioPageComponent },
+      { path: 'about', component: AboutComponent },
       { path: 'profile', component: UserProfileComponent }
     ]
   },

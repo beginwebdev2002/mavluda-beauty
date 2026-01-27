@@ -2,11 +2,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgOptimizedImage],
+  imports: [CommonModule, RouterLink, NgOptimizedImage, SafeHtmlPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Hero Section -->
@@ -69,35 +70,40 @@ import { RouterLink } from '@angular/router';
             </div>
         </div>
     </section>
-    <!-- Partners / Trust Section -->
-    <section class="w-full py-16 bg-background-card border-y border-[#222]">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-            <p class="text-sm font-medium text-gray-400 uppercase tracking-[0.2em] mb-12">Trusted Partners &amp; Medical Boards</p>
-            <div class="flex flex-wrap justify-center items-center gap-12 lg:gap-20 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-                <!-- Logos -->
-                <div class="flex items-center gap-2 group cursor-default">
-                    <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">diamond</span>
-                    <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">VOGUE</span>
-                </div>
-                <div class="flex items-center gap-2 group cursor-default">
-                    <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">hotel_class</span>
-                    <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">ELITE</span>
-                </div>
-                <div class="flex items-center gap-2 group cursor-default">
-                    <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">medication</span>
-                    <span class="text-2xl font-sans font-bold text-gray-500 group-hover:text-white transition-colors tracking-tighter">MED_ASSOC</span>
-                </div>
-                <div class="flex items-center gap-2 group cursor-default">
-                    <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">spa</span>
-                    <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">PURE</span>
-                </div>
-                <div class="flex items-center gap-2 group cursor-default">
-                    <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">local_hospital</span>
-                    <span class="text-2xl font-sans font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">AESTHETICA</span>
-                </div>
-            </div>
-        </div>
+
+    <!-- Partners Marquee Section -->
+    <section class="py-16 sm:py-24 bg-background-dark/50 border-y border-white/5">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <h2 class="text-center text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-12">
+              Trusted Partners & Medical Boards
+          </h2>
+          <div class="relative overflow-hidden mask-gradient-lr">
+              <div class="flex animate-marquee gap-20">
+                  <!-- Render partners twice for seamless loop -->
+                  @for (partner of partners; track $index) {
+                      <div class="flex items-center gap-4 text-gray-500 hover:text-white transition-colors duration-300 shrink-0">
+                          <span class="text-3xl" [innerHTML]="partner.icon | safeHtml"></span>
+                          <span class="text-xl font-bold tracking-widest uppercase">{{ partner.name }}</span>
+                      </div>
+                  }
+                  @for (partner of partners; track $index) {
+                      <div class="flex items-center gap-4 text-gray-500 hover:text-white transition-colors duration-300 shrink-0">
+                          <span class="text-3xl" [innerHTML]="partner.icon | safeHtml"></span>
+                          <span class="text-xl font-bold tracking-widest uppercase">{{ partner.name }}</span>
+                      </div>
+                  }
+              </div>
+          </div>
+      </div>
     </section>
   `
 })
-export class UserHomeComponent {}
+export class UserHomeComponent {
+  partners = [
+    { name: 'VOGUE', icon: '<span class="material-symbols-outlined">diamond</span>' },
+    { name: 'ELITE', icon: '<span class="material-symbols-outlined">star</span>' },
+    { name: 'MED_ASSOC', icon: '<span class="material-symbols-outlined">medical_bag</span>' },
+    { name: 'PURE', icon: '<span class="material-symbols-outlined">spa</span>' },
+    { name: 'AESTHETICA', icon: '<span class="material-symbols-outlined">add</span>' },
+  ];
+}

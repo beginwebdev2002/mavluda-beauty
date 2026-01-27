@@ -31,7 +31,8 @@ import { CommonModule } from '@angular/common';
                         <a routerLink="/user/home" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Home</a>
                         <a routerLink="/user/services" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Services</a>
                         <a routerLink="/user/portfolio" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Portfolio</a>
-                        <a routerLink="/user/profile" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">About</a>
+                        <a routerLink="/user/about" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">About</a>
+                        <a routerLink="/user/about" fragment="contact" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Contact</a>
                     </nav>
                     <!-- CTA & Mobile Menu -->
                     <div class="flex items-center gap-4">
@@ -58,7 +59,7 @@ import { CommonModule } from '@angular/common';
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
                     <!-- Brand -->
-                    <div class="md:col-span-5 flex flex-col gap-6">
+                    <div class="md:col-span-6 flex flex-col gap-6">
                         <div class="flex items-center gap-3">
                             <div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-background-dark">
                                 <span class="font-bold text-sm">MA</span>
@@ -70,7 +71,7 @@ import { CommonModule } from '@angular/common';
                         </p>
                     </div>
                     <!-- Links -->
-                    <div class="md:col-span-2">
+                    <div class="md:col-span-3">
                         <h4 class="text-white font-bold mb-6">Menu</h4>
                         <ul class="flex flex-col gap-4 text-gray-400">
                             <li><a class="hover:text-primary transition-colors" routerLink="/user/services">Services</a></li>
@@ -80,28 +81,13 @@ import { CommonModule } from '@angular/common';
                         </ul>
                     </div>
                     <!-- Legal -->
-                    <div class="md:col-span-2">
+                    <div class="md:col-span-3">
                         <h4 class="text-white font-bold mb-6">Legal</h4>
                         <ul class="flex flex-col gap-4 text-gray-400">
                             <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
                             <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
                             <li><a class="hover:text-primary transition-colors" href="#">Medical Disclaimer</a></li>
                         </ul>
-                    </div>
-                    <!-- Contact/Social -->
-                    <div class="md:col-span-3">
-                        <h4 class="text-white font-bold mb-6">Connect</h4>
-                        <div class="flex gap-4 mb-6">
-                            <a class="h-10 w-10 rounded-full bg-[#222] flex items-center justify-center text-gray-400 hover:bg-primary hover:text-background-dark transition-all" href="#">
-                                <span class="font-bold text-sm">IG</span>
-                            </a>
-                            <a class="h-10 w-10 rounded-full bg-[#222] flex items-center justify-center text-gray-400 hover:bg-primary hover:text-background-dark transition-all" href="#">
-                                <span class="font-bold text-sm">LI</span>
-                            </a>
-                            <a class="h-10 w-10 rounded-full bg-[#222] flex items-center justify-center text-gray-400 hover:bg-primary hover:text-background-dark transition-all" href="#">
-                                <span class="font-bold text-sm">FB</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <div class="pt-8 border-t border-[#222] flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
