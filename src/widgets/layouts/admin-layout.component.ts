@@ -6,7 +6,6 @@ import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-admin-layout',
-  standalone: true,
   imports: [RouterOutlet, SidebarComponent, HeaderComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

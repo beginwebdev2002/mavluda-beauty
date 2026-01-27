@@ -1,4 +1,5 @@
 
+
 import { Routes } from '@angular/router';
 import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -9,6 +10,7 @@ import { VeilPageComponent } from './pages/veil/veil.component';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { ServicesCatalogComponent } from './pages/services-catalog/services-catalog.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -34,7 +36,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: UserHomeComponent },
-      { path: 'services', component: ServicesPageComponent }, // Reusing for now (read-only mode would be ideal later)
+      { path: 'services', component: ServicesCatalogComponent },
       { path: 'profile', component: UserProfileComponent }
     ]
   },

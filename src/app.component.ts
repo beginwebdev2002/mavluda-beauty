@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Keeping it here as per existing file structure preference, though generally default in v20
   imports: [CommonModule, RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `

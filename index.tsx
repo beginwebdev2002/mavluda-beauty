@@ -1,13 +1,13 @@
 import '@angular/compiler';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { AppComponent } from './src/app.component';
 import { provideRouter, withHashLocation } from '@angular/router';
 import { routes } from './src/app.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideRouter(routes, withHashLocation())
   ]
 }).catch(err => console.error(err));
