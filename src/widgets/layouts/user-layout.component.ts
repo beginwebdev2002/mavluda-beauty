@@ -1,5 +1,5 @@
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -47,13 +47,30 @@ import { CommonModule } from '@angular/common';
                         <div routerLink="/user/profile" class="h-8 w-8 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center text-primary font-bold text-xs cursor-pointer hover:bg-primary/30 transition-colors">
                             SA
                         </div>
-                        <button class="md:hidden text-white p-2">
-                            <span class="material-symbols-outlined">menu</span>
+                        <button (click)="toggleMobileMenu()" class="md:hidden text-white p-2 z-50">
+                             <span class="material-symbols-outlined transition-transform duration-300" [class.rotate-90]="isMobileMenuOpen()">
+                                {{ isMobileMenuOpen() ? 'close' : 'menu' }}
+                            </span>
                         </button>
                     </div>
                 </div>
             </div>
         </header>
+
+         <!-- Mobile Menu Overlay -->
+        @if (isMobileMenuOpen()) {
+            <div class="fixed inset-0 top-0 z-40 bg-background-dark/95 backdrop-blur-lg md:hidden" (click)="toggleMobileMenu()">
+                <div class="mt-20 flex flex-col items-center justify-center h-full animate-in fade-in slide-in-from-top-4 duration-500">
+                    <nav class="flex flex-col items-center gap-8 text-center" (click)="$event.stopPropagation()">
+                        <a (click)="toggleMobileMenu()" routerLink="/user/home" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Home</a>
+                        <a (click)="toggleMobileMenu()" routerLink="/user/services" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Services</a>
+                        <a (click)="toggleMobileMenu()" routerLink="/user/portfolio" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Portfolio</a>
+                        <a (click)="toggleMobileMenu()" routerLink="/user/about" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">About</a>
+                        <a (click)="toggleMobileMenu()" routerLink="/user/about" fragment="contact" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Contact</a>
+                    </nav>
+                </div>
+            </div>
+        }
 
         <main class="flex-grow">
             <router-outlet></router-outlet>
@@ -109,4 +126,10 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class UserLayoutComponent {}
+export class UserLayoutComponent {
+  isMobileMenuOpen = signal(false);
+
+  toggleMobileMenu() {
+    this.isMobileMenuOpen.update(v => !v);
+  }
+}

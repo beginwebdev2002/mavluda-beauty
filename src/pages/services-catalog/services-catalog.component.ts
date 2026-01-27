@@ -1,224 +1,179 @@
 
 import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 interface Service {
   id: number;
   name: string;
-  category: string; // The filter category
-  displayCategory: string; // The category text shown on the card
+  category: string;
   description: string;
   price: number;
-  priceNote?: string;
-  duration: string;
   imageUrl: string;
 }
 
 @Component({
   selector: 'app-services-catalog',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgOptimizedImage],
+  imports: [CommonModule, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex-1 flex flex-col lg:flex-row max-w-[1440px] mx-auto w-full animate-page-enter">
-      <aside class="w-full lg:w-80 flex-shrink-0 border-r border-white/5 px-6 lg:px-10 py-12 bg-background-dark">
-        <div class="lg:sticky lg:top-32">
-          <div class="flex items-center justify-between mb-10 pb-6 border-b border-white/5">
-            <h3 class="text-white font-display text-2xl font-light italic flex items-center gap-3">
-              Refine Selection
-            </h3>
+    <main class="flex-grow animate-page-enter">
+      <!-- Header Section -->
+      <section class="relative w-full py-12 lg:py-16">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full border border-primary/30 bg-primary/5 w-fit">
+              <span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
+              <span class="text-primary text-xs font-bold uppercase tracking-widest">Available for Booking</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-white mb-6">
+              Refined <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#edd685] to-primary">Services</span>
+            </h1>
+            <p class="text-gray-400 text-lg leading-relaxed border-l-2 border-primary/30 pl-6">
+              A curated selection of medical aesthetic treatments and professional visage services designed to enhance your natural beauty through precision and artistry.
+            </p>
           </div>
-          <div class="space-y-12">
-            <div>
-              <h4 class="text-gold text-[10px] font-bold uppercase tracking-[0.3em] mb-6">Expertise</h4>
-              <div class="space-y-4">
-                @for(category of filterOptions.categories; track category) {
-                  <label class="flex items-center gap-3 group cursor-pointer">
-                    <input 
-                      [checked]="isCategoryActive(category)"
-                      (change)="toggleCategory(category)"
-                      class="w-3.5 h-3.5 border-white/20 bg-transparent text-gold focus:ring-0 focus:ring-offset-0 transition-all cursor-pointer" type="checkbox"/>
-                    <span 
-                      class="text-xs uppercase tracking-widest transition-colors"
-                      [class]="isCategoryActive(category) ? 'text-gold font-bold' : 'text-text-muted group-hover:text-white'">
-                      {{ category }}
-                    </span>
-                  </label>
+        </div>
+      </section>
+
+      <!-- Content Section -->
+      <section class="w-full pb-24">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
+            
+            <!-- Sidebar -->
+            <aside class="w-full lg:w-64 flex-shrink-0">
+              <div class="sticky top-24">
+                <div class="flex items-center justify-between mb-6 pb-2 border-b border-[#ffffff10]">
+                  <h3 class="text-lg font-bold uppercase tracking-wider text-white">Refine</h3>
+                  <span class="material-symbols-outlined text-primary text-sm">filter_list</span>
+                </div>
+                <ul class="space-y-1">
+                  @for(filter of filterOptions; track filter) {
+                    <li>
+                      <button 
+                        (click)="setFilter(filter)"
+                        class="w-full text-left px-4 py-3 border-l-2 transition-all text-sm uppercase tracking-wide"
+                        [class]="activeFilter() === filter
+                          ? 'border-primary text-primary font-bold bg-primary/5'
+                          : 'border-transparent text-gray-400 hover:text-white hover:border-white/20 hover:bg-white/5'"
+                      >
+                        {{ filter }}
+                      </button>
+                    </li>
+                  }
+                </ul>
+                <div class="mt-12 p-6 rounded-2xl bg-[#121212] border border-[#ffffff10]">
+                  <h4 class="text-primary font-bold mb-2">Need Guidance?</h4>
+                  <p class="text-xs text-gray-400 mb-4 leading-relaxed">Schedule a preliminary consultation to discuss your specific needs and expected results.</p>
+                  <a class="text-xs font-bold text-white border-b border-primary pb-0.5 hover:text-primary transition-colors" href="#">Contact Support</a>
+                </div>
+              </div>
+            </aside>
+
+            <!-- Services Grid -->
+            <div class="flex-grow">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
+                @for(service of filteredServices(); track service.id) {
+                  <article class="group relative flex flex-col h-full">
+                    <div class="relative aspect-[4/5] w-full overflow-hidden rounded-3xl mb-6 shadow-2xl shadow-black/50">
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 transition-opacity duration-300 opacity-60 group-hover:opacity-40"></div>
+                      <img [ngSrc]="service.imageUrl" [alt]="service.name" width="800" height="1000" priority
+                           class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 filter saturate-[0.9] group-hover:saturate-100"/>
+                      <div class="absolute bottom-6 right-6 z-20">
+                        <div class="bg-black/80 backdrop-blur-md border border-primary/40 pl-4 pr-5 py-2 rounded-full flex items-center gap-3">
+                          <span class="text-[10px] text-gray-300 uppercase tracking-wider font-medium">Honorarium</span>
+                          <span class="text-primary font-bold text-sm tracking-tight">{{ service.price | number }} TJS</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flex flex-col flex-grow">
+                      <span class="text-xs font-bold text-primary uppercase tracking-widest mb-2">{{ service.category }}</span>
+                      <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{{ service.name }}</h3>
+                      <p class="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">{{ service.description }}</p>
+                      <div class="mt-auto">
+                        <button class="w-full h-12 rounded-xl bg-primary hover:bg-primary-hover text-[#0A0A0A] text-sm font-bold uppercase tracking-wider shadow-gold hover:shadow-gold-glow transition-all flex items-center justify-center gap-2">
+                          <span>Secure Consultation</span>
+                          <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
+                        </button>
+                      </div>
+                    </div>
+                  </article>
                 }
+                 @if (filteredServices().length === 0) {
+                    <div class="md:col-span-2 text-center py-20 border border-dashed border-white/10 rounded-2xl">
+                        <span class="material-symbols-outlined text-gold/30 text-5xl">sentiment_dissatisfied</span>
+                        <h3 class="mt-4 font-display text-2xl text-white">No Services Found</h3>
+                        <p class="mt-2 text-text-muted italic">Please adjust your filter criteria.</p>
+                    </div>
+                  }
               </div>
-            </div>
-            <div>
-              <h4 class="text-gold text-[10px] font-bold uppercase tracking-[0.3em] mb-6">Investment</h4>
-              <div class="space-y-4">
-                 @for(tier of filterOptions.priceTiers; track tier.label) {
-                    <label class="flex items-center gap-3 group cursor-pointer">
-                      <input 
-                        name="price" type="radio"
-                        [checked]="activePriceTier() === tier.label"
-                        (change)="setPriceTier(tier.label)"
-                        class="w-3.5 h-3.5 border-white/20 bg-transparent text-gold focus:ring-0 focus:ring-offset-0 transition-all cursor-pointer" />
-                      <span
-                        class="text-xs uppercase tracking-widest transition-colors"
-                        [class]="activePriceTier() === tier.label ? 'text-gold font-bold' : 'text-text-muted group-hover:text-white'">
-                        {{ tier.label }}
-                      </span>
-                    </label>
-                 }
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <main class="flex-1 px-4 lg:px-16 py-12">
-        <div class="mb-16">
-          <div class="flex flex-col mb-6">
-            <span class="text-gold text-[10px] font-bold uppercase tracking-[0.5em] mb-4">The Collection</span>
-            <h1 class="text-white text-5xl md:text-6xl font-display font-light leading-tight tracking-tight">Premium Services</h1>
-          </div>
-          <p class="text-text-muted text-lg font-light max-w-2xl leading-relaxed italic">A curated selection of world-class aesthetic medical treatments and professional visage artistry, tailored to the most discerning clientele.</p>
-        </div>
-
-        <div class="mb-16 max-w-3xl">
-          <div class="relative group">
-            <input #searchInput (input)="searchTerm.set(searchInput.value)" class="block w-full h-14 bg-transparent border-0 border-b border-white/10 text-white placeholder-text-muted/50 focus:border-gold focus:ring-0 transition-all text-xl font-display italic tracking-wide px-0" placeholder="Searching for your next transformation..." type="text"/>
-            <div class="absolute right-0 top-1/2 -translate-y-1/2 text-gold/50 group-focus-within:text-gold transition-colors">
-              <span class="material-symbols-outlined text-3xl">search</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-          @for(service of filteredServices(); track service.id) {
-            <div class="group shimmer card-hover-glow relative flex flex-col bg-card-dark border border-white/5 transition-all duration-500">
-              <div class="relative aspect-[4/3] overflow-hidden">
-                <img [ngSrc]="service.imageUrl" alt="{{ service.name }}" width="600" height="600" priority class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent"></div>
-                <div class="absolute top-6 left-6">
-                  <span class="text-[9px] font-bold text-gold uppercase tracking-[0.3em] bg-black/80 px-4 py-1 border border-gold/20">{{ service.displayCategory }}</span>
-                </div>
-              </div>
-              <div class="p-8 flex flex-col flex-1">
-                <h3 class="text-white text-3xl font-display font-light group-hover:text-gold transition-colors duration-300 mb-4">{{ service.name }}</h3>
-                <p class="text-text-muted text-sm font-light leading-relaxed mb-8 line-clamp-2 italic">{{ service.description }}</p>
-                <div class="mt-auto flex items-center justify-between pb-8 border-b border-white/5">
-                  <div class="flex flex-col">
-                    <span class="text-[10px] text-gold/70 uppercase tracking-[0.2em] font-bold mb-1">Honorarium</span>
-                    <span class="text-gold text-2xl font-display font-medium">{{ service.price }} TJS <span *ngIf="service.priceNote" class="text-[10px] text-text-muted uppercase tracking-widest">{{ service.priceNote }}</span></span>
-                  </div>
-                  <div class="flex flex-col items-end">
-                    <span class="text-[9px] text-text-muted uppercase tracking-[0.2em] font-bold mb-1">Timeframe</span>
-                    <span class="text-white font-light text-sm tracking-widest uppercase">{{ service.duration }}</span>
-                  </div>
-                </div>
-                <button class="mt-8 w-full gold-gradient-bg text-black font-bold text-[11px] uppercase tracking-[0.3em] py-5 shadow-[0_10px_20px_-10px_rgba(212,175,55,0.3)] hover:brightness-110 hover:shadow-[0_15px_30px_-10px_rgba(212,175,55,0.4)] transition-all flex items-center justify-center gap-3">
-                  <span>Book Appointment</span>
-                  <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              <div class="mt-16 flex justify-center">
+                <button class="px-8 py-4 border border-[#333] hover:border-primary text-gray-400 hover:text-primary rounded-lg uppercase tracking-widest text-xs font-bold transition-all flex items-center gap-2">
+                  Load More Services
+                  <span class="material-symbols-outlined text-sm">expand_more</span>
                 </button>
               </div>
             </div>
-          } @empty {
-             <div class="md:col-span-2 text-center py-20 border border-dashed border-white/10">
-                <span class="material-symbols-outlined text-gold/30 text-5xl">sentiment_dissatisfied</span>
-                <h3 class="mt-4 font-display text-2xl text-white">No Services Found</h3>
-                <p class="mt-2 text-text-muted italic">Please adjust your search or filter criteria.</p>
-             </div>
-          }
-        </div>
 
-        <div class="mt-24 flex flex-col items-center">
-          <button class="group relative px-12 py-5 border border-gold/30 hover:border-gold transition-all duration-500">
-            <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-gold group-hover:text-white transition-colors">Examine Further Results</span>
-            <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] bg-gold group-hover:w-full transition-all duration-500"></div>
-          </button>
-          <p class="mt-8 text-text-muted text-[10px] uppercase tracking-[0.2em]">Displaying {{ filteredServices().length }} of 4 Exceptional Services</p>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+    </main>
   `
 })
 export class ServicesCatalogComponent {
   
   services = signal<Service[]>([
     {
-      id: 1, name: 'Hyaluronic Lip Contour', displayCategory: 'Aesthetics', category: 'Medical Aesthetics',
-      description: "Precision enhancement for natural volume and sculptural definition using the world's most elite dermal fillers.",
-      price: 3500, duration: '45 Minutes',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDmTzC27oxmArD14ByyN7Tnk1sOiW0KkMQWS8ybC4AbH4Gnpuck1MeJ5JyykX1-HcjPolPF1qWY42Uvp5YPp0q4OJoDPvc2Wd0mzLwrfwKcmreM2jLU1L4f0Pg4jidZZWUiC4cd8BV0mD5FYajUXA9F13Z8LEm9OOeDNkHjcv3I87tP0v_oRFFxYgjNzmxDa-RgRPJ8ZXQT7eHY22QI8bq0nfRKJsXfAcsOnbEVB42YMalLNYcASzm7pHdK6gTM_7Wpu79MfB1-GdJr'
+      id: 1,
+      name: 'Lip Neutralization',
+      category: 'Medical Aesthetics',
+      description: 'Advanced pigmentation correction technique to restore natural color and definition. Ideal for correcting cool tones or asymmetry with minimal downtime.',
+      price: 1200,
+      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCnLA3tyCDcRymBx90wrQjtgGrWXr_0vKq72g14XO5LhCtxN0fIKkFn9IKD6M6rsiu2j-1__eQ3HJiho2vFk_lUHKNgfQNS64FGix2N4F6nBTaf3Rj8L6dICODAdpKFsPPMxMl_Pmvzxp-eFvAmxPVLjUW97KBGsfct4_5BDBksKXVjK3k0-dAiz7QQdGnsOy0tfeqFvOTrXr6fFz-G7dqpR1pQtskfaENZz1vQbsl1ShEaci5i8fDDN3Z_aU8hZQl4VkxlfL-rO07R'
     },
     {
-      id: 2, name: 'Gold Radiance Facial', displayCategory: 'Therapy', category: 'Skin Therapy',
-      description: 'An opulent 24-karat gold infused mask therapy designed for ultimate dermal rejuvenation and cellular glow.',
-      price: 2800, duration: '60 Minutes',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBVNlTjYkSNSjPjz2IHHVXuO9R7jxgFyIBGykErEjdFZYWPHD7VReXl0eCsXt_uMEFpCFGeMWY5AEfEOSIBk7fbX2penrpGR9nshDbhFYL1akSIACfD_AJhrXv3PMr1wMUXTQO42gD9Cn1_CxEt7ElIkBfF19gM4nmWLdEvjsCoWGB-866VqJnRFhG-lKiJr9mxMvXxTLtqE2K5Sxyz_e8OLc0UKTPQDt5-OaAJ6rsf4Bj_HIp5XrpNPIGAdW9usGYfmDtMsBPhjOv_'
+      id: 2,
+      name: 'Evening Glamour',
+      category: 'Professional Visage',
+      description: 'High-end evening makeup application using luxury cosmetics. Focused on longevity, photogenic finish, and enhancing your unique facial architecture.',
+      price: 600,
+      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD08o6hF5_pbFiIJqYs4VYYrPPviAtlB2PjR4z2lZYzuT3rcSqK7UbUQNiOic7Y-5L8OgQjXfDI3pcgi0scXP-E6zXsJwv5g2J3sX89thdN8QagJQQCwGJWt96_rVAjbhNezpl35TsKsDKDFcyUdrK2qT0yPcFM3kP0hOXpqC8ZB7OFulzRzNGWHZR0Hw2QbGd77Id8wWieXLWUC7eU1JKb3MgO6TXvXzAJQth53BY6a91dqAL2kuvJKelagAgLC2sRUWQy1FQ6Ul7i'
     },
     {
-      id: 3, name: 'Bridal Visage Premium', displayCategory: 'Visage', category: 'Professional Visage',
-      description: 'A complete bridal transformational journey including trial sessions and on-site editorial artistry.',
-      price: 4500, duration: '120 Minutes',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAHI4Qur3WSGJ8dtvt4q2b5279eTiMhWgOAXMY8cd3tBDm7vhT2rwLU6yqP-cDaHw3iJtq2mcfN1_Eas5Mbu6zk5u02cH6_5rQdHsLK0eTdyEYw-YUawGSBSp6Uo2qfKfifMXfa3dmHGhX9GIxivc1e-KFbrxfysGLlCWZDXszdaPZTGRRlPgyoBznM7jaVHoJEDBpvOyBWGb1fODLDSVLtz4bFl082OM2cfU5FwuuKHPi3x3gZRen1t19EyJxIelVjYAtLlWlkQ5-X'
+      id: 3,
+      name: 'HydraFacial Elite',
+      category: 'Skin Therapy',
+      description: 'The ultimate skin detox. A multi-step treatment that cleanses, exfoliates, and extracts impurities while infusing skin with hydrating serums.',
+      price: 850,
+      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCN_i0UQ2DDBO3oiICvkDjAAQV4CBheKjtZbeV5zkQ3A3tngd9-v_70jN19UdyigQVFmmIJDEC6KKFrFXpRZnADtipZUJtbLTQrkC2elu6cCE8YLFAfsNR4Sy2SSAkC9vrYzA1VIzXnfpODZ7BB0sLbToeWMEeyWAB73l2Knzq96QXhRvBQlRlC3T7NRYn2TyQGjGmRmuoej4liuPk-DWB4caahTA2ZC7ui3ZRdGP1RwFDSRGLLzJclNcKQCbsaytClAoq-wBZgNMuu'
     },
     {
-      id: 4, name: 'Botulinum Toxin Therapy', displayCategory: 'Medical', category: 'Medical Aesthetics',
-      description: 'Expertly administered neuromodulators for seamless age-defying results and facial harmony.',
-      price: 120, priceNote: '/ unit', duration: '30 Minutes',
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDlYKk8xLdJNxfnlXF1tRkW1CLnGF8YJybuLSLJgYxlE7tAZkDC-1lOgU9DPKSWE4wvvU8Iogu5nt1ectLkfCo0SmE5NBNhMEMZjjzkOAZMCLKCYJwFzQpmd1g9_0f27_gvtvv6UY22eLZXQz0I6ZPFCiS-hQ430ByMP7hoPCp-EhVIgX-5-icPpmOYnJc8J00xjVo0pVHxh-DHBFikwANq8vKH1C7x_jiSyc6ukVu42ky34UGPzhe2GMTN9_l_Vz9S-MTKeHv-yXCP'
-    },
+      id: 4,
+      name: 'Botulinum Therapy',
+      category: 'Medical Aesthetics',
+      description: 'Medical-grade precision treatment to relax facial muscles, smoothing fine lines and wrinkles for a refreshed, youthful appearance.',
+      price: 1500,
+      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB34PkR8y1rYZNuLirjoa_FFY2CY_sTtk3E3D3TyDA3ETuKZbV1f8UE43MtJowMY1QOkYx7mK8J63t1ElZzHXCDnlJcQYrZMqn3_uOkUn73PcyqERAFxeNewueco1IiX_dN1plTcEHcp1rjm_S-F900peq3YKUrZ9edGuDoXDqmXhfYwwt_qDbLHdlaxqKvcczg_kPsJADCRIBk8kD3gHj-EZsWUO2PlGmKPvoLa2z6haQa_oPg1yQuDbLaUjPG84AAjlPmus3FpnTd'
+    }
   ]);
 
-  filterOptions = {
-    categories: ['All Treatments', 'Medical Aesthetics', 'Professional Visage', 'Skin Therapy'],
-    priceTiers: [
-      { label: 'All Tiers', min: 0, max: Infinity },
-      { label: '1000 - 3000 TJS', min: 1000, max: 3000 },
-      { label: '3000 - 5000 TJS', min: 3001, max: 5000 },
-      { label: '5000+ TJS', min: 5001, max: Infinity }
-    ]
-  };
-
-  activeCategories = signal<string[]>(['All Treatments']);
-  activePriceTier = signal<string>('All Tiers');
-  searchTerm = signal<string>('');
+  filterOptions = ['All Services', 'Medical Aesthetics', 'Professional Visage', 'Skin Therapy'];
+  activeFilter = signal('All Services');
 
   filteredServices = computed(() => {
     const services = this.services();
-    const categories = this.activeCategories();
-    const priceTierLabel = this.activePriceTier();
-    const term = this.searchTerm().toLowerCase();
+    const filter = this.activeFilter();
     
-    const priceTier = this.filterOptions.priceTiers.find(t => t.label === priceTierLabel) ?? this.filterOptions.priceTiers[0];
-
-    return services.filter(service => {
-      const categoryMatch = categories.includes('All Treatments') || categories.includes(service.category);
-      const priceMatch = service.price >= priceTier.min && service.price <= priceTier.max;
-      const searchMatch = !term || service.name.toLowerCase().includes(term) || service.description.toLowerCase().includes(term);
-      return categoryMatch && priceMatch && searchMatch;
-    });
+    if (filter === 'All Services') {
+        return services;
+    }
+    
+    return services.filter(service => service.category === filter);
   });
 
-  isCategoryActive(category: string): boolean {
-    return this.activeCategories().includes(category);
-  }
-  
-  toggleCategory(category: string) {
-    this.activeCategories.update(current => {
-      if (category === 'All Treatments') {
-        return ['All Treatments'];
-      }
-      
-      let newCategories = current.filter(c => c !== 'All Treatments');
-      if (newCategories.includes(category)) {
-        newCategories = newCategories.filter(c => c !== category);
-      } else {
-        newCategories.push(category);
-      }
-      
-      return newCategories.length === 0 ? ['All Treatments'] : newCategories;
-    });
-  }
-
-  setPriceTier(label: string) {
-    this.activePriceTier.set(label);
+  setFilter(filter: string) {
+    this.activeFilter.set(filter);
   }
 }
