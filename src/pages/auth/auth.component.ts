@@ -14,14 +14,16 @@ import { AuthService } from '../../shared/services/auth.service';
     <div class="bg-background-light dark:bg-background-dark font-sans transition-colors duration-300 min-h-screen flex flex-col items-center justify-center p-4 luxury-gradient animate-page-enter">
 
       <header class="text-center mb-10">
-        <div class="relative inline-block mb-6">
-          <div class="w-20 h-20 rounded-full border border-primary flex items-center justify-center bg-black/40 backdrop-blur-sm gold-glow">
-            <span class="font-serif text-4xl text-primary font-semibold">M</span>
+        <div class="flex flex-col items-center space-y-4">
+          <div class="relative">
+            <div class="w-16 h-16 rounded-full border border-primary flex items-center justify-center">
+                <span class="font-serif text-3xl text-primary font-medium">M</span>
+            </div>
+            <div class="absolute -inset-4 bg-primary/5 blur-2xl rounded-full -z-10"></div>
           </div>
-          <div class="absolute -inset-4 bg-primary/5 blur-2xl rounded-full -z-10"></div>
+          <h1 class="font-serif text-4xl md:text-5xl text-white">Mavluda Beauty</h1>
+          <p class="font-accent text-[10px] md:text-xs tracking-[0.3em] text-primary uppercase font-bold">Medical Luxury Ecosystem</p>
         </div>
-        <h1 class="font-serif text-4xl md:text-5xl text-gray-900 dark:text-white mb-2 tracking-tight">Mavluda Beauty</h1>
-        <p class="font-accent text-[10px] md:text-xs tracking-[0.3em] text-primary uppercase font-bold">Medical Luxury Ecosystem</p>
       </header>
 
       <main class="w-full max-w-[440px]">

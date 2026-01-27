@@ -13,14 +13,16 @@ import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
     <aside class="h-full bg-[#050505] flex flex-col w-72 border-r border-[#1F1F1F] shadow-2xl relative z-20">
       
       <!-- Brand Header -->
-      <div class="h-20 flex items-center px-8 border-b border-[#1F1F1F] bg-[#0A0A0A]">
+      <div class="h-20 flex items-center px-6 border-b border-[#1F1F1F] bg-[#0A0A0A]">
          <div class="flex items-center gap-3">
-           <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-gold-600 flex items-center justify-center shadow-lg">
-             <span class="text-white font-serif font-bold text-lg">M</span>
-           </div>
+          <!-- Icon -->
+          <div class="w-8 h-8 rounded-full border border-primary flex items-center justify-center">
+              <span class="font-serif text-lg text-primary font-medium">M</span>
+          </div>
+           <!-- Text -->
            <div class="flex flex-col">
-             <span class="text-white font-serif font-semibold tracking-wide text-lg leading-none">Mavluda</span>
-             <span class="text-[10px] uppercase text-gold/80 tracking-widest mt-1">Admin Console</span>
+             <h2 class="font-serif text-lg text-white leading-tight">Mavluda Beauty</h2>
+             <p class="text-[10px] uppercase text-gold/80 tracking-widest mt-1">Admin Console</p>
            </div>
          </div>
       </div>

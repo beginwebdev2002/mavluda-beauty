@@ -21,10 +21,15 @@ import { CommonModule } from '@angular/common';
                 <div class="flex h-20 items-center justify-between">
                     <!-- Logo -->
                     <a routerLink="/user/home" class="flex items-center gap-3">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-[#8a701e] text-background-dark shadow-gold">
-                            <span class="font-bold text-xl tracking-tighter">MA</span>
+                        <!-- Icon -->
+                        <div class="w-8 h-8 rounded-full border border-primary flex items-center justify-center">
+                            <span class="font-serif text-lg text-primary font-medium">M</span>
                         </div>
-                        <h2 class="text-white text-lg font-bold uppercase tracking-[0.1em]">Mavluda Azizova</h2>
+                        <!-- Text -->
+                        <div class="flex flex-col">
+                            <h2 class="font-serif text-lg text-white leading-tight">Mavluda Beauty</h2>
+                            <p class="text-[8px] text-primary uppercase tracking-[0.15em] font-bold leading-tight">Medical Luxury Ecosystem</p>
+                        </div>
                     </a>
                     <!-- Desktop Nav -->
                     <nav class="hidden md:flex items-center gap-8">
@@ -60,11 +65,16 @@ import { CommonModule } from '@angular/common';
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
                     <!-- Brand -->
                     <div class="md:col-span-6 flex flex-col gap-6">
-                        <div class="flex items-center gap-3">
-                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-background-dark">
-                                <span class="font-bold text-sm">MA</span>
+                        <div class="flex items-center gap-4">
+                            <!-- Icon -->
+                            <div class="w-10 h-10 rounded-full border border-primary flex items-center justify-center">
+                                <span class="font-serif text-xl text-primary font-medium">M</span>
                             </div>
-                            <h3 class="text-white text-lg font-bold uppercase tracking-wider">Mavluda Azizova</h3>
+                            <!-- Text -->
+                            <div class="flex flex-col">
+                                <h3 class="font-serif text-2xl text-white leading-tight">Mavluda Beauty</h3>
+                                <p class="text-[9px] text-primary uppercase tracking-[0.2em] font-bold">Medical Luxury Ecosystem</p>
+                            </div>
                         </div>
                         <p class="text-gray-400 leading-relaxed max-w-sm">
                             Experience the pinnacle of medical aesthetics. Combining artistry with clinical safety to reveal your most radiant self.

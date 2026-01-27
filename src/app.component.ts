@@ -16,23 +16,22 @@ import { CommonModule } from '@angular/common';
         <!-- Background Ambient Glow -->
         <div class="absolute w-[500px] h-[500px] bg-gold/5 rounded-full blur-[100px] animate-pulse"></div>
 
-        <!-- Gold Shimmer Logo -->
-        <div class="w-24 h-24 mb-10 relative overflow-hidden rounded-full bg-gradient-to-br from-gold to-[#887023] p-[2px] shadow-gold-lg z-10">
-             <div class="w-full h-full bg-[#121212] rounded-full flex items-center justify-center">
-                <span class="text-4xl font-serif text-transparent bg-clip-text bg-gradient-to-b from-gold to-[#F4ECD3] font-bold">M</span>
-             </div>
-             <!-- Shimmer overlay -->
-             <div class="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+        <!-- New Logo -->
+        <div class="flex flex-col items-center space-y-4 mb-10 z-10">
+          <div class="w-16 h-16 rounded-full border border-primary flex items-center justify-center bg-black/20">
+              <span class="font-serif text-3xl text-primary font-medium">M</span>
+          </div>
+          <h1 class="font-serif text-4xl text-white">Mavluda Beauty</h1>
+          <p class="text-xs text-primary uppercase tracking-[0.3em] font-bold">Medical Luxury Ecosystem</p>
         </div>
 
         <!-- Progress Indicator -->
-        <div class="w-48 h-1 bg-gray-800 rounded-full overflow-hidden z-10 relative">
+        <div class="w-48 h-1 bg-gray-800 rounded-full overflow-hidden z-10 relative mb-6">
            <div class="absolute inset-0 bg-gold animate-progress shadow-[0_0_10px_#D4AF37]"></div>
         </div>
 
-        <div class="mt-6 text-center z-10">
-           <p class="text-gold-100 font-serif text-lg tracking-wide">Mavluda Beauty</p>
-           <p class="text-gray-500 text-[10px] uppercase tracking-[0.3em] mt-1 font-medium">Authenticating Securely</p>
+        <div class="text-center z-10">
+           <p class="text-gray-500 text-[10px] uppercase tracking-[0.3em] font-medium">Authenticating Securely</p>
         </div>
       </div>
     } @else {
