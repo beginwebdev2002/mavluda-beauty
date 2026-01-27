@@ -9,7 +9,8 @@ export type UserRole = 'admin' | 'client';
   providedIn: 'root'
 })
 export class AuthService {
-  private router = inject(Router);
+  // Fix: Add explicit type `Router` to injected router.
+  private router: Router = inject(Router);
   private telegramService = inject(TelegramService);
 
   currentUserRole = signal<UserRole>('client'); // Default to client for safety

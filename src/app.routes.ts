@@ -11,6 +11,7 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { ServicesCatalogComponent } from './pages/services-catalog/services-catalog.component';
+import { PortfolioPageComponent } from './pages/portfolio/portfolio.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -37,6 +38,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: UserHomeComponent },
       { path: 'services', component: ServicesCatalogComponent },
+      { path: 'portfolio', component: PortfolioPageComponent },
       { path: 'profile', component: UserProfileComponent }
     ]
   },

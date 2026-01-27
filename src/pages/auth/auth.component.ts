@@ -16,11 +16,11 @@ import { AuthService } from '../../shared/services/auth.service';
       <header class="text-center mb-10">
         <div class="relative inline-block mb-6">
           <div class="w-20 h-20 rounded-full border border-primary flex items-center justify-center bg-black/40 backdrop-blur-sm gold-glow">
-            <span class="font-display text-4xl text-primary font-semibold">M</span>
+            <span class="font-serif text-4xl text-primary font-semibold">M</span>
           </div>
           <div class="absolute -inset-4 bg-primary/5 blur-2xl rounded-full -z-10"></div>
         </div>
-        <h1 class="font-display text-4xl md:text-5xl text-gray-900 dark:text-white mb-2 tracking-tight">Mavluda Beauty</h1>
+        <h1 class="font-serif text-4xl md:text-5xl text-gray-900 dark:text-white mb-2 tracking-tight">Mavluda Beauty</h1>
         <p class="font-accent text-[10px] md:text-xs tracking-[0.3em] text-primary uppercase font-bold">Medical Luxury Ecosystem</p>
       </header>
 
@@ -133,9 +133,11 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class AuthComponent {
   private fb: FormBuilder = inject(FormBuilder);
-  private router = inject(Router);
+  // Fix: Add explicit type `Router` to injected router.
+  private router: Router = inject(Router);
   public authService = inject(AuthService);
-  private document = inject(DOCUMENT);
+  // Fix: Add explicit type `Document` to injected document.
+  private document: Document = inject(DOCUMENT);
   
   isLoading = signal(false);
   showPassword = signal(false);

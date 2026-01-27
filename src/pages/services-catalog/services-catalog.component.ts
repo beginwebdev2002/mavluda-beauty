@@ -93,7 +93,7 @@ interface Service {
           @for(service of filteredServices(); track service.id) {
             <div class="group shimmer card-hover-glow relative flex flex-col bg-card-dark border border-white/5 transition-all duration-500">
               <div class="relative aspect-[4/3] overflow-hidden">
-                <img [ngSrc]="service.imageUrl" alt="{{ service.name }}" width="600" height="450" priority class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"/>
+                <img [ngSrc]="service.imageUrl" alt="{{ service.name }}" width="600" height="600" priority class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale-[30%] group-hover:grayscale-0"/>
                 <div class="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent"></div>
                 <div class="absolute top-6 left-6">
                   <span class="text-[9px] font-bold text-gold uppercase tracking-[0.3em] bg-black/80 px-4 py-1 border border-gold/20">{{ service.displayCategory }}</span>
