@@ -18,8 +18,8 @@ import { CommonModule } from '@angular/common';
 
         <!-- New Logo -->
         <div class="flex flex-col items-center space-y-4 mb-10 z-10">
-          <div class="w-16 h-16 rounded-full border border-primary flex items-center justify-center bg-black/20">
-              <span class="font-serif text-3xl text-primary font-medium">M</span>
+          <div class="w-16 h-16 rounded-full border-2 border-gold/60 flex items-center justify-center">
+              <span class="font-serif text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-b from-gold to-[#b8952a]">M</span>
           </div>
           <h1 class="font-serif text-4xl text-white">Mavluda Beauty</h1>
           <p class="text-xs text-primary uppercase tracking-[0.3em] font-bold">Medical Luxury Ecosystem</p>

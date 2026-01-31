@@ -14,8 +14,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
         <div class="mx-auto max-w-4xl px-6 lg:px-8 text-center">
           <div class="relative mx-auto w-24 h-24 mb-10 group cursor-default">
             <div class="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-700"></div>
-            <div class="relative w-full h-full border border-primary rounded-full flex items-center justify-center bg-background-dark">
-              <span class="font-serif text-5xl text-primary font-medium translate-y-1">M</span>
+            <div class="relative w-full h-full border-2 border-gold/60 rounded-full flex items-center justify-center bg-background-dark">
+              <span class="font-serif text-6xl font-medium text-transparent bg-clip-text bg-gradient-to-b from-gold to-[#b8952a] translate-y-1">M</span>
             </div>
           </div>
           <h1 class="font-serif text-4xl sm:text-5xl lg:text-7xl text-white mb-8 tracking-tight leading-[1.1]">
@@ -159,7 +159,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   `
 })
 export class AboutComponent {
-  private fb = inject(FormBuilder);
+  // Fix: Explicitly type injected FormBuilder to resolve type inference issue.
+  private fb: FormBuilder = inject(FormBuilder);
 
   contactForm = this.fb.group({
     fullName: ['', Validators.required],

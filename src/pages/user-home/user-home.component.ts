@@ -2,12 +2,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-user-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgOptimizedImage, SafeHtmlPipe],
+  imports: [CommonModule, RouterLink, NgOptimizedImage],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- Hero Section -->
@@ -20,21 +19,21 @@ import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
                         <span class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></span>
                         <span class="text-primary text-xs font-bold uppercase tracking-widest">Medical Aesthetics</span>
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-white">
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-serif font-bold leading-[1.1] tracking-tight text-white">
                         Redefining <br/>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#edd685] to-primary">Aesthetic Excellence</span>
                     </h1>
                     <p class="text-gray-400 text-lg leading-relaxed max-w-xl border-l-2 border-primary/30 pl-6">
-                        Mavluda Azizova — Elite Visagiste &amp; Medical Aesthetics Specialist. Where advanced Medical Science meets artistic precision for natural, transformative results.
+                        Mavluda Azizova — Elite Visagiste & Medical Aesthetics Specialist. Where advanced Medical Science meets artistic precision for natural, transformative results.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-4">
                         <button class="h-14 min-w-[200px] px-8 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-base font-bold uppercase tracking-wider rounded transition-all shadow-gold flex items-center justify-center gap-2 group">
                             <span>Secure Consultation</span>
                             <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                         </button>
-                        <button class="h-14 min-w-[180px] px-8 bg-transparent border border-[#ffffff30] hover:border-primary hover:text-primary text-white text-base font-bold uppercase tracking-wider rounded transition-all flex items-center justify-center">
+                        <a routerLink="/user/portfolio" class="h-14 min-w-[180px] px-8 bg-transparent border border-[#ffffff30] hover:border-primary hover:text-primary text-white text-base font-bold uppercase tracking-wider rounded transition-all flex items-center justify-center">
                             View Portfolio
-                        </button>
+                        </a>
                     </div>
                     <!-- Small social proof -->
                     <div class="flex items-center gap-4 mt-8 text-sm text-gray-500">
@@ -71,39 +70,62 @@ import { SafeHtmlPipe } from '../../shared/pipes/safe-html.pipe';
         </div>
     </section>
 
-    <!-- Partners Marquee Section -->
-    <section class="py-16 sm:py-24 bg-background-dark/50 border-y border-white/5">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 class="text-center text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-12">
-              Trusted Partners & Medical Boards
-          </h2>
-          <div class="relative overflow-hidden mask-gradient-lr">
-              <div class="flex animate-marquee gap-20">
-                  <!-- Render partners twice for seamless loop -->
-                  @for (partner of partners; track $index) {
-                      <div class="flex items-center gap-4 text-gray-500 hover:text-white transition-colors duration-300 shrink-0">
-                          <span class="text-3xl" [innerHTML]="partner.icon | safeHtml"></span>
-                          <span class="text-xl font-bold tracking-widest uppercase">{{ partner.name }}</span>
-                      </div>
-                  }
-                  @for (partner of partners; track $index) {
-                      <div class="flex items-center gap-4 text-gray-500 hover:text-white transition-colors duration-300 shrink-0">
-                          <span class="text-3xl" [innerHTML]="partner.icon | safeHtml"></span>
-                          <span class="text-xl font-bold tracking-widest uppercase">{{ partner.name }}</span>
-                      </div>
-                  }
-              </div>
-          </div>
-      </div>
+    <!-- Partners / Trust Section -->
+    <section class="w-full py-16 bg-background-card border-y border-[#222] overflow-hidden">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+            <p class="text-sm font-medium text-gray-400 uppercase tracking-[0.2em] mb-12">Trusted Partners & Medical Boards</p>
+            <div class="relative w-full overflow-hidden mask-gradient-lr">
+                <div class="flex animate-marquee whitespace-nowrap">
+                    <div class="flex-shrink-0 flex items-center justify-around gap-12 lg:gap-20 opacity-60 grayscale px-6 lg:px-10">
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">diamond</span>
+                            <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">VOGUE</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">hotel_class</span>
+                            <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">ELITE</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">medication</span>
+                            <span class="text-2xl font-sans font-bold text-gray-500 group-hover:text-white transition-colors tracking-tighter">MED_ASSOC</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">spa</span>
+                            <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">PURE</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">local_hospital</span>
+                            <span class="text-2xl font-sans font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">AESTHETICA</span>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 flex items-center justify-around gap-12 lg:gap-20 opacity-60 grayscale px-6 lg:px-10" aria-hidden="true">
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">diamond</span>
+                            <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">VOGUE</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">hotel_class</span>
+                            <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">ELITE</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">medication</span>
+                            <span class="text-2xl font-sans font-bold text-gray-500 group-hover:text-white transition-colors tracking-tighter">MED_ASSOC</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">spa</span>
+                            <span class="text-2xl font-serif font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">PURE</span>
+                        </div>
+                        <div class="flex items-center gap-2 group cursor-default">
+                            <span class="material-symbols-outlined text-4xl text-gray-500 group-hover:text-white transition-colors">local_hospital</span>
+                            <span class="text-2xl font-sans font-bold text-gray-500 group-hover:text-white transition-colors tracking-tight">AESTHETICA</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
   `
 })
 export class UserHomeComponent {
-  partners = [
-    { name: 'VOGUE', icon: '<span class="material-symbols-outlined">diamond</span>' },
-    { name: 'ELITE', icon: '<span class="material-symbols-outlined">star</span>' },
-    { name: 'MED_ASSOC', icon: '<span class="material-symbols-outlined">medical_bag</span>' },
-    { name: 'PURE', icon: '<span class="material-symbols-outlined">spa</span>' },
-    { name: 'AESTHETICA', icon: '<span class="material-symbols-outlined">add</span>' },
-  ];
+  // Component logic can be added here if needed in the future.
 }

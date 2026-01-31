@@ -1,6 +1,7 @@
 
 
 
+
 import { Routes } from '@angular/router';
 import { AuthComponent } from './pages/auth/auth.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -14,6 +15,7 @@ import { LandingComponent } from './pages/landing/landing.component';
 import { ServicesCatalogComponent } from './pages/services-catalog/services-catalog.component';
 import { PortfolioPageComponent } from './pages/portfolio/portfolio.component';
 import { AboutComponent } from './pages/about/about.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -29,6 +31,7 @@ export const routes: Routes = [
       { path: 'veil', component: VeilPageComponent },
       { path: 'services', component: ServicesPageComponent },
       { path: 'clients', component: DashboardComponent },
+      { path: 'settings', component: SettingsComponent },
     ]
   },
 

@@ -21,15 +21,10 @@ import { CommonModule } from '@angular/common';
                 <div class="flex h-20 items-center justify-between">
                     <!-- Logo -->
                     <a routerLink="/user/home" class="flex items-center gap-3">
-                        <!-- Icon -->
-                        <div class="w-8 h-8 rounded-full border border-primary flex items-center justify-center">
-                            <span class="font-serif text-lg text-primary font-medium">M</span>
+                        <div class="w-10 h-10 rounded-full border border-gold/70 flex items-center justify-center">
+                           <span class="font-serif text-2xl font-medium text-transparent bg-clip-text bg-gradient-to-b from-gold to-[#b8952a]">M</span>
                         </div>
-                        <!-- Text -->
-                        <div class="flex flex-col">
-                            <h2 class="font-serif text-lg text-white leading-tight">Mavluda Beauty</h2>
-                            <p class="text-[8px] text-primary uppercase tracking-[0.15em] font-bold leading-tight">Medical Luxury Ecosystem</p>
-                        </div>
+                        <h2 class="font-serif text-lg font-medium text-white tracking-wide">Mavluda Beauty</h2>
                     </a>
                     <!-- Desktop Nav -->
                     <nav class="hidden md:flex items-center gap-8">
@@ -41,12 +36,9 @@ import { CommonModule } from '@angular/common';
                     </nav>
                     <!-- CTA & Mobile Menu -->
                     <div class="flex items-center gap-4">
-                        <button class="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
-                            <span class="material-symbols-outlined">notifications</span>
+                        <button routerLink="/user/about" fragment="contact" class="hidden sm:flex items-center justify-center h-10 px-6 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-sm font-bold uppercase tracking-wider rounded transition-all shadow-gold">
+                            Book Appointment
                         </button>
-                        <div routerLink="/user/profile" class="h-8 w-8 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center text-primary font-bold text-xs cursor-pointer hover:bg-primary/30 transition-colors">
-                            SA
-                        </div>
                         <button (click)="toggleMobileMenu()" class="md:hidden text-white p-2 z-50">
                              <span class="material-symbols-outlined transition-transform duration-300" [class.rotate-90]="isMobileMenuOpen()">
                                 {{ isMobileMenuOpen() ? 'close' : 'menu' }}
@@ -67,6 +59,9 @@ import { CommonModule } from '@angular/common';
                         <a (click)="toggleMobileMenu()" routerLink="/user/portfolio" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Portfolio</a>
                         <a (click)="toggleMobileMenu()" routerLink="/user/about" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">About</a>
                         <a (click)="toggleMobileMenu()" routerLink="/user/about" fragment="contact" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Contact</a>
+                        <button (click)="toggleMobileMenu()" routerLink="/user/about" fragment="contact" class="mt-8 items-center justify-center h-12 px-8 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-base font-bold uppercase tracking-wider rounded transition-all shadow-gold">
+                            Book Appointment
+                        </button>
                     </nav>
                 </div>
             </div>
@@ -82,16 +77,11 @@ import { CommonModule } from '@angular/common';
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
                     <!-- Brand -->
                     <div class="md:col-span-6 flex flex-col gap-6">
-                        <div class="flex items-center gap-4">
-                            <!-- Icon -->
-                            <div class="w-10 h-10 rounded-full border border-primary flex items-center justify-center">
-                                <span class="font-serif text-xl text-primary font-medium">M</span>
-                            </div>
-                            <!-- Text -->
-                            <div class="flex flex-col">
-                                <h3 class="font-serif text-2xl text-white leading-tight">Mavluda Beauty</h3>
-                                <p class="text-[9px] text-primary uppercase tracking-[0.2em] font-bold">Medical Luxury Ecosystem</p>
-                            </div>
+                        <div class="flex items-center gap-3">
+                           <div class="w-9 h-9 rounded-full border border-gold/70 flex items-center justify-center">
+                                <span class="font-serif text-xl font-medium text-transparent bg-clip-text bg-gradient-to-b from-gold to-[#b8952a]">M</span>
+                           </div>
+                           <h3 class="font-serif text-lg font-medium text-white tracking-wide">Mavluda Beauty</h3>
                         </div>
                         <p class="text-gray-400 leading-relaxed max-w-sm">
                             Experience the pinnacle of medical aesthetics. Combining artistry with clinical safety to reveal your most radiant self.
@@ -101,10 +91,10 @@ import { CommonModule } from '@angular/common';
                     <div class="md:col-span-3">
                         <h4 class="text-white font-bold mb-6">Menu</h4>
                         <ul class="flex flex-col gap-4 text-gray-400">
-                            <li><a class="hover:text-primary transition-colors" routerLink="/user/services">Services</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Portfolio</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">About</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+                            <li><a routerLink="/user/services" class="hover:text-primary transition-colors">Services</a></li>
+                            <li><a routerLink="/user/portfolio" class="hover:text-primary transition-colors">Portfolio</a></li>
+                            <li><a routerLink="/user/about" class="hover:text-primary transition-colors">About</a></li>
+                            <li><a routerLink="/user/about" fragment="contact" class="hover:text-primary transition-colors">Contact</a></li>
                         </ul>
                     </div>
                     <!-- Legal -->

@@ -16,8 +16,8 @@ import { AuthService } from '../../shared/services/auth.service';
       <header class="text-center mb-10">
         <div class="flex flex-col items-center space-y-4">
           <div class="relative">
-            <div class="w-16 h-16 rounded-full border border-primary flex items-center justify-center">
-                <span class="font-serif text-3xl text-primary font-medium">M</span>
+            <div class="w-16 h-16 rounded-full border-2 border-gold/60 flex items-center justify-center">
+                <span class="font-serif text-4xl font-medium text-transparent bg-clip-text bg-gradient-to-b from-gold to-[#b8952a]">M</span>
             </div>
             <div class="absolute -inset-4 bg-primary/5 blur-2xl rounded-full -z-10"></div>
           </div>

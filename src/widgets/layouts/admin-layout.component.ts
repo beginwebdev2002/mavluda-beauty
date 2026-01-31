@@ -9,7 +9,7 @@ import { HeaderComponent } from '../header/header.component';
   imports: [RouterOutlet, SidebarComponent, HeaderComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="flex h-screen overflow-hidden bg-[#F8F8F8]">
+    <div class="flex h-screen overflow-hidden bg-white dark:bg-background-dark">
       
       <!-- Mobile Sidebar Overlay -->
       @if (isMobileSidebarOpen()) {
@@ -39,13 +39,13 @@ import { HeaderComponent } from '../header/header.component';
       <app-sidebar class="hidden md:flex"></app-sidebar>
 
       <!-- Main Content Area -->
-      <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-white">
         
         <!-- Header Widget with toggle listener -->
         <app-header (menuToggled)="toggleMobileSidebar()"></app-header>
 
         <!-- Scrollable Content -->
-        <main class="flex-1 overflow-y-auto p-4 md:p-8">
+        <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50">
           <router-outlet></router-outlet>
         </main>
       </div>
