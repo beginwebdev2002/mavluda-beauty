@@ -44,7 +44,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
                 <h2 class="font-serif text-3xl lg:text-4xl text-white mb-2">Private Sanctuary</h2>
                 <p class="text-primary text-sm uppercase tracking-widest font-bold mb-10">Contact &amp; Location</p>
                 <div class="space-y-8">
-                  <div class="flex items-start gap-5 group">
+                  <div class="flex items-start gap-5 group reveal-item" style="animation-delay: 100ms;">
                     <div class="h-12 w-12 rounded-full border border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all shadow-gold-glow">
                       <span class="material-symbols-outlined">location_on</span>
                     </div>
@@ -53,7 +53,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
                       <p class="text-gray-400 font-light mt-1">Rudaki Avenue 127, Suite 402<br/>Dushanbe, Tajikistan</p>
                     </div>
                   </div>
-                  <div class="flex items-start gap-5 group">
+                  <div class="flex items-start gap-5 group reveal-item" style="animation-delay: 200ms;">
                     <div class="h-12 w-12 rounded-full border border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all shadow-gold-glow">
                       <span class="material-symbols-outlined">call</span>
                     </div>
@@ -63,7 +63,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
                       <p class="text-xs text-primary mt-1">Available 9:00 AM - 8:00 PM</p>
                     </div>
                   </div>
-                  <div class="flex items-start gap-5 group">
+                  <div class="flex items-start gap-5 group reveal-item" style="animation-delay: 300ms;">
                     <div class="h-12 w-12 rounded-full border border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all shadow-gold-glow">
                       <span class="material-symbols-outlined">mail</span>
                     </div>
@@ -131,7 +131,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
                     <textarea formControlName="message" class="w-full bg-[#151515] border-0 border-b border-[#333] focus:border-primary focus:ring-0 text-white px-0 py-3 transition-colors placeholder:text-gray-600 resize-none" placeholder="Tell us about your aesthetic goals..." rows="3"></textarea>
                   </div>
                   <div class="pt-4">
-                    <button class="w-full h-14 bg-primary hover:bg-primary-hover text-background-dark font-bold uppercase tracking-wider rounded transition-all shadow-gold flex items-center justify-center gap-2 group" type="submit">
+                    <button class="w-full h-14 bg-primary hover:bg-primary-hover text-background-dark font-bold uppercase tracking-wider rounded transition-all shadow-gold flex items-center justify-center gap-2 group btn-primary-shimmer active:scale-[0.98]" type="submit">
                       <span>Submit Request</span>
                       <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                     </button>

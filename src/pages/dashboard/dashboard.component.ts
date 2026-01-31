@@ -45,8 +45,8 @@ interface Activity {
 
       <!-- Stats Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        @for (stat of stats(); track stat.title) {
-          <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+        @for (stat of stats(); track stat.title; let i = $index) {
+          <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300 reveal-item" [style.animation-delay.ms]="i * 100">
             <div class="flex justify-between items-start mb-4">
               <div class="p-3 rounded-lg bg-gray-50 text-gray-600">
                 <span class="material-symbols-outlined text-2xl">{{ stat.icon }}</span>
@@ -100,8 +100,8 @@ interface Activity {
           <h2 class="font-display text-xl font-semibold text-gray-900 mb-6">Recent Activity</h2>
           <div class="space-y-6 relative">
             <div class="absolute left-4 top-2 bottom-2 w-px bg-gray-100"></div>
-            @for (item of activities(); track item.id) {
-              <div class="relative pl-10">
+            @for (item of activities(); track item.id; let i = $index) {
+              <div class="relative pl-10 reveal-item" [style.animation-delay.ms]="i * 100">
                 <div class="absolute left-0 top-1 w-8 h-8 rounded-full flex items-center justify-center ring-4 ring-white" [class]="item.color">
                   <span class="material-symbols-outlined text-white text-sm">{{ item.icon }}</span>
                 </div>

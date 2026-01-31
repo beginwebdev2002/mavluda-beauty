@@ -38,8 +38,8 @@ interface Veil {
 
       <!-- Veil Characteristics Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        @for (veil of veils(); track veil.id) {
-          <div class="group bg-white rounded-[20px] border border-gray-100 p-8 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-gold hover:border-gold/20 transition-all duration-500 relative overflow-hidden">
+        @for (veil of veils(); track veil.id; let i = $index) {
+          <div class="group bg-white rounded-[20px] border border-gray-100 p-8 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] hover:shadow-gold hover:border-gold/20 transition-all duration-500 relative overflow-hidden reveal-item" [style.animation-delay.ms]="i * 100">
             <!-- Decorative background element for luxury feel -->
             <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-gold/5 to-transparent rounded-bl-[100px] -mr-10 -mt-10 transition-transform group-hover:scale-110 duration-700 pointer-events-none"></div>
             

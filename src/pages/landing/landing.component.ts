@@ -11,19 +11,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
   imports: [CommonModule, NgOptimizedImage, RouterLink, LanguageSwitcherComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- 
-      This <style> block is equivalent to landing.component.scss
-      It contains the custom Ken Burns animation for the hero image.
-    -->
     <style>
-      .kenburns {
-        animation: kenburns-effect 50s ease-out infinite alternate;
-        will-change: transform;
-      }
-      @keyframes kenburns-effect {
-        0% { transform: scale(1.0) translate(0, 0); }
-        100% { transform: scale(1.15) translate(-2%, 2%); }
-      }
       .scroll-bounce {
         animation: bounce 2s infinite;
       }
@@ -31,10 +19,6 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
         0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
         40% {transform: translateY(-10px);}
         60% {transform: translateY(-5px);}
-      }
-      /* Custom Shimmer for Skeleton */
-      .animate-shimmer-gold {
-        animation: shimmer 2.5s infinite linear;
       }
     </style>
 
@@ -98,7 +82,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
             @if (heroImage(); as hero) {
               <div class="col-span-4 md:col-span-3 row-span-3 overflow-hidden relative">
                 <div class="absolute inset-0 bg-black/10 z-10"></div>
-                <img [ngSrc]="hero.url" [alt]="hero.alt" width="1800" height="1200" priority class="w-full h-full object-cover kenburns">
+                <img [ngSrc]="hero.url" [alt]="hero.alt" width="1800" height="1200" priority class="w-full h-full object-cover animate-ken-burns">
               </div>
             }
             <!-- Secondary Images (Hidden on mobile for cleaner look) -->
@@ -173,8 +157,8 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
           </div>
           
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            @for(image of galleryImages(); track image.url) {
-              <div class="group relative overflow-hidden rounded-sm aspect-[3/4] cursor-pointer">
+            @for(image of galleryImages(); track image.url; let i = $index) {
+              <div class="group relative overflow-hidden rounded-sm aspect-[3/4] cursor-pointer reveal-item" [style.animation-delay.ms]="i * 100">
                 <img [ngSrc]="image.url" [alt]="image.alt" width="600" height="800" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110">
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                    <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/30 transform scale-90 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-500 delay-100">
@@ -208,7 +192,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
               <!-- Step 1 -->
-              <div class="flex flex-col items-center group">
+              <div class="flex flex-col items-center group reveal-item" style="animation-delay: 100ms;">
                 <div class="w-20 h-20 mb-8 flex items-center justify-center rounded-full bg-[#FDFBF8] border border-gold/30 shadow-gold-sm group-hover:scale-110 group-hover:border-gold transition-all duration-500">
                   <span class="font-serif text-2xl text-gold">01</span>
                 </div>
@@ -216,7 +200,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
                 <p class="text-gray-600 leading-relaxed font-light text-sm px-4">Your journey begins with a champagne consultation to explore your vision, style, and desires.</p>
               </div>
               <!-- Step 2 -->
-              <div class="flex flex-col items-center group">
+              <div class="flex flex-col items-center group reveal-item" style="animation-delay: 200ms;">
                 <div class="w-20 h-20 mb-8 flex items-center justify-center rounded-full bg-[#FDFBF8] border border-gold/30 shadow-gold-sm group-hover:scale-110 group-hover:border-gold transition-all duration-500">
                   <span class="font-serif text-2xl text-gold">02</span>
                 </div>
@@ -224,7 +208,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
                 <p class="text-gray-600 leading-relaxed font-light text-sm px-4">Experience your chosen gown as our master seamstresses meticulously sculpt it to your exact measurements.</p>
               </div>
               <!-- Step 3 -->
-              <div class="flex flex-col items-center group">
+              <div class="flex flex-col items-center group reveal-item" style="animation-delay: 300ms;">
                 <div class="w-20 h-20 mb-8 flex items-center justify-center rounded-full bg-[#FDFBF8] border border-gold/30 shadow-gold-sm group-hover:scale-110 group-hover:border-gold transition-all duration-500">
                   <span class="font-serif text-2xl text-gold">03</span>
                 </div>
@@ -249,7 +233,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
           <p class="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
             Your dream dress awaits. Schedule a private consultation with our bridal stylists and discover the gown that will define your moment.
           </p>
-          <a routerLink="/auth" class="inline-block bg-gradient-to-r from-gold to-[#B89628] hover:to-gold text-white font-medium py-5 px-12 rounded-full text-lg transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.4)] transform hover:-translate-y-1 hover:scale-105">
+          <a routerLink="/auth" class="inline-block bg-gradient-to-r from-gold to-[#B89628] hover:to-gold text-white font-medium py-5 px-12 rounded-full text-lg transition-all duration-300 shadow-[0_10px_30px_-10px_rgba(212,175,55,0.4)] transform hover:-translate-y-1 hover:scale-105 btn-primary-shimmer active:scale-[0.98]">
             Book Your Appointment
           </a>
         </div>

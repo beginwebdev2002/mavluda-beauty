@@ -27,7 +27,7 @@ import { RouterLink } from '@angular/router';
                         Mavluda Azizova — Elite Visagiste & Medical Aesthetics Specialist. Where advanced Medical Science meets artistic precision for natural, transformative results.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-4">
-                        <button class="h-14 min-w-[200px] px-8 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-base font-bold uppercase tracking-wider rounded transition-all shadow-gold flex items-center justify-center gap-2 group">
+                        <button class="h-14 min-w-[200px] px-8 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-base font-bold uppercase tracking-wider rounded transition-all shadow-gold flex items-center justify-center gap-2 group btn-primary-shimmer active:scale-[0.98]">
                             <span>Secure Consultation</span>
                             <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                         </button>

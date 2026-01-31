@@ -82,7 +82,7 @@ import { AuthService } from '../../shared/services/auth.service';
                 <a class="text-primary font-medium hover:underline decoration-primary/30" href="#">Forgot password?</a>
               </div>
 
-              <button class="w-full bg-primary hover:bg-[#C5A02E] text-black py-4 rounded-lg font-bold flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.01] active:scale-[0.99] btn-glow disabled:opacity-70 disabled:cursor-wait" type="submit" [disabled]="isLoading()">
+              <button class="w-full bg-primary hover:bg-[#C5A02E] text-black py-4 rounded-lg font-bold flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.01] active:scale-[0.98] btn-glow disabled:opacity-70 disabled:cursor-wait btn-primary-shimmer" type="submit" [disabled]="isLoading()">
                 @if (isLoading()) {
                     <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

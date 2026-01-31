@@ -53,17 +53,17 @@ interface PortfolioItem {
         <section class="px-6 lg:px-8 pb-24">
             <div class="mx-auto max-w-7xl">
                 <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
-                    @for(item of filteredItems(); track item.id) {
-                        <div class="break-inside-avoid group relative rounded-3xl bg-gray-900 overflow-hidden cursor-pointer hover-shimmer-border">
+                    @for(item of filteredItems(); track item.id; let i = $index) {
+                        <div class="break-inside-avoid group relative rounded-3xl bg-gray-900 overflow-hidden cursor-pointer hover-shimmer-border reveal-item" [style.animation-delay.ms]="i * 100">
                             @if (item.aspectClass) {
                                 <div class="relative w-full" [class]="item.aspectClass">
                                     <img [ngSrc]="item.imageUrl" [alt]="item.title" [width]="item.width" [height]="item.height"
-                                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                                        class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 animate-ken-burns"
                                         [class]="item.effects || ''"/>
                                 </div>
                             } @else {
                                 <img [ngSrc]="item.imageUrl" [alt]="item.title" [width]="item.width" [height]="item.height"
-                                    class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100"
+                                    class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 animate-ken-burns"
                                     [class]="item.effects || ''"/>
                             }
                             

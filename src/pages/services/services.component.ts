@@ -27,7 +27,7 @@ interface ServiceItem {
         </div>
         <button 
           (click)="openAddModal()"
-          class="px-5 py-2.5 bg-gold text-white rounded-lg shadow-gold hover:shadow-gold-lg hover:bg-gold-dark transition-all duration-300 flex items-center justify-center space-x-2 group"
+          class="px-5 py-2.5 bg-primary text-black rounded-lg shadow-gold hover:shadow-gold-lg hover:bg-primary-hover transition-all duration-300 flex items-center justify-center space-x-2 group btn-primary-shimmer active:scale-[0.98]"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:scale-110 transition-transform"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
           <span class="font-medium">Add Service</span>
@@ -93,8 +93,8 @@ interface ServiceItem {
                 </tr>
               </thead>
               <tbody class="bg-white divide-y divide-gray-100">
-                @for (service of filteredServices(); track service.id) {
-                  <tr class="hover:bg-gold-50/30 transition-colors duration-200">
+                @for (service of filteredServices(); track service.id; let i = $index) {
+                  <tr class="hover:bg-gold-50/30 transition-colors duration-200 reveal-item" [style.animation-delay.ms]="i * 50">
                     <td class="px-6 py-4 whitespace-nowrap">
                       <div class="text-sm font-medium text-gray-900">{{ service.name }}</div>
                     </td>
@@ -135,8 +135,8 @@ interface ServiceItem {
       } @else {
         <!-- Card View -->
          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-page-enter">
-           @for (service of filteredServices(); track service.id) {
-             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-gold hover:border-gold/30 transition-all duration-300 group flex flex-col h-full">
+           @for (service of filteredServices(); track service.id; let i = $index) {
+             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-gold hover:border-gold/30 transition-all duration-300 group flex flex-col h-full reveal-item" [style.animation-delay.ms]="i * 100">
                 
                 <div class="flex justify-between items-start mb-4">
                    <span class="px-2.5 py-1 text-xs font-medium rounded-full bg-gray-50 text-gray-600 border border-gray-100">

@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
   template: `
     <!-- Background Decoration: Ambient Gold Glows -->
     <div class="fixed top-0 left-0 w-full h-screen pointer-events-none z-0 overflow-hidden">
-        <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]"></div>
+        <div class="absolute top-[-20%] right-[-15%] w-[800px] h-[800px] bg-primary rounded-full animate-ambient-glow"></div>
+        <div class="absolute bottom-[-20%] left-[-25%] w-[700px] h-[700px] bg-primary rounded-full animate-ambient-glow [animation-delay:4s]"></div>
     </div>
 
     <div class="relative z-10 flex min-h-screen w-full flex-col">
@@ -36,7 +36,7 @@ import { CommonModule } from '@angular/common';
                     </nav>
                     <!-- CTA & Mobile Menu -->
                     <div class="flex items-center gap-4">
-                        <button routerLink="/user/about" fragment="contact" class="hidden sm:flex items-center justify-center h-10 px-6 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-sm font-bold uppercase tracking-wider rounded transition-all shadow-gold">
+                        <button routerLink="/user/about" fragment="contact" class="hidden sm:flex items-center justify-center h-10 px-6 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-sm font-bold uppercase tracking-wider rounded transition-all shadow-gold btn-primary-shimmer active:scale-[0.98]">
                             Book Appointment
                         </button>
                         <button (click)="toggleMobileMenu()" class="md:hidden text-white p-2 z-50">
@@ -59,7 +59,7 @@ import { CommonModule } from '@angular/common';
                         <a (click)="toggleMobileMenu()" routerLink="/user/portfolio" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Portfolio</a>
                         <a (click)="toggleMobileMenu()" routerLink="/user/about" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">About</a>
                         <a (click)="toggleMobileMenu()" routerLink="/user/about" fragment="contact" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Contact</a>
-                        <button (click)="toggleMobileMenu()" routerLink="/user/about" fragment="contact" class="mt-8 items-center justify-center h-12 px-8 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-base font-bold uppercase tracking-wider rounded transition-all shadow-gold">
+                        <button (click)="toggleMobileMenu()" routerLink="/user/about" fragment="contact" class="mt-8 items-center justify-center h-12 px-8 bg-primary hover:bg-primary-hover text-[#0A0A0A] text-base font-bold uppercase tracking-wider rounded transition-all shadow-gold btn-primary-shimmer active:scale-[0.98]">
                             Book Appointment
                         </button>
                     </nav>

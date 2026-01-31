@@ -60,7 +60,7 @@ interface AdditionalLink {
                       <span class="material-symbols-outlined text-primary mr-3">business_center</span>
                       <h4 class="font-serif text-xl font-semibold text-gray-900">Business Profile</h4>
                   </div>
-                  <button class="flex items-center px-4 py-2 bg-primary hover:bg-primary-hover text-black rounded-lg text-sm font-medium transition-all shadow-md">
+                  <button class="flex items-center px-4 py-2 bg-primary hover:bg-primary-hover text-black rounded-lg text-sm font-medium transition-all shadow-md btn-primary-shimmer active:scale-[0.98]">
                       Save Changes
                   </button>
               </div>
@@ -119,15 +119,15 @@ interface AdditionalLink {
                       <button (click)="addSocialPlatform()" class="flex items-center px-4 py-2 border border-primary text-primary hover:bg-primary/5 rounded-lg text-sm font-medium transition-all">
                           <span class="material-symbols-outlined text-sm mr-2">add</span> Add Platform
                       </button>
-                      <button class="flex items-center px-4 py-2 bg-primary hover:bg-primary-hover text-black rounded-lg text-sm font-medium transition-all shadow-md">
+                      <button class="flex items-center px-4 py-2 bg-primary hover:bg-primary-hover text-black rounded-lg text-sm font-medium transition-all shadow-md btn-primary-shimmer active:scale-[0.98]">
                           Save Changes
                       </button>
                   </div>
               </div>
               <div class="p-8">
                   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      @for(platform of socialPlatforms(); track platform.id){
-                        <div class="p-5 border border-gray-100 rounded-2xl bg-gray-50 group hover:border-primary/30 transition-all">
+                      @for(platform of socialPlatforms(); track platform.id; let i = $index){
+                        <div class="p-5 border border-gray-100 rounded-2xl bg-gray-50 group hover:border-primary/30 transition-all reveal-item" [style.animation-delay.ms]="i * 100">
                             <div class="flex justify-between items-start mb-4">
                                 <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm border border-gray-100">
                                     <img [alt]="platform.alt" class="w-6 h-6" [src]="platform.iconUrl"/>
@@ -155,7 +155,7 @@ interface AdditionalLink {
                 <span class="material-symbols-outlined text-primary mr-3">auto_awesome</span>
                 <h4 class="font-serif text-xl font-semibold text-gray-900">General Info & Philosophy</h4>
               </div>
-              <button class="flex items-center px-4 py-2 bg-primary hover:bg-primary-hover text-black rounded-lg text-sm font-medium transition-all shadow-md">
+              <button class="flex items-center px-4 py-2 bg-primary hover:bg-primary-hover text-black rounded-lg text-sm font-medium transition-all shadow-md btn-primary-shimmer active:scale-[0.98]">
                 Save Changes
               </button>
             </div>
@@ -211,8 +211,8 @@ interface AdditionalLink {
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-50">
-                    @for(link of additionalLinks(); track link.id){
-                      <tr class="group hover:bg-gray-50 transition-colors">
+                    @for(link of additionalLinks(); track link.id; let i = $index){
+                      <tr class="group hover:bg-gray-50 transition-colors reveal-item" [style.animation-delay.ms]="i * 50">
                         <td class="py-4 px-4">
                           <input class="bg-transparent border-none focus:ring-0 text-sm font-medium p-0 text-gray-900" type="text" [value]="link.label"/>
                         </td>
@@ -244,7 +244,7 @@ interface AdditionalLink {
           <p class="text-sm text-gray-500 font-medium">Last updated: <span class="text-gray-900">Oct 26, 2024 - 14:32</span></p>
           <div class="flex space-x-4">
               <button class="px-6 py-2.5 text-gray-500 hover:text-gray-800 font-medium transition-colors">Discard All</button>
-              <button class="px-8 py-2.5 bg-primary hover:bg-primary-hover text-black rounded-xl shadow-gold hover:shadow-lg transition-all font-semibold tracking-wide">Publish Changes</button>
+              <button class="px-8 py-2.5 bg-primary hover:bg-primary-hover text-black rounded-xl shadow-gold hover:shadow-lg transition-all font-semibold tracking-wide btn-primary-shimmer active:scale-[0.98]">Publish Changes</button>
           </div>
       </div>
     </div>

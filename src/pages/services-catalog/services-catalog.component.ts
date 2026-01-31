@@ -74,8 +74,8 @@ interface Service {
             <!-- Services Grid -->
             <div class="flex-grow">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12">
-                @for(service of filteredServices(); track service.id) {
-                  <article class="group relative flex flex-col h-full">
+                @for(service of filteredServices(); track service.id; let i = $index) {
+                  <article class="group relative flex flex-col h-full reveal-item" [style.animation-delay.ms]="i * 100">
                     <div class="relative aspect-[4/5] w-full overflow-hidden rounded-3xl mb-6 shadow-2xl shadow-black/50">
                       <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 transition-opacity duration-300 opacity-60 group-hover:opacity-40"></div>
                       <img [ngSrc]="service.imageUrl" [alt]="service.name" width="800" height="1000" priority
@@ -92,7 +92,7 @@ interface Service {
                       <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{{ service.name }}</h3>
                       <p class="text-gray-400 text-sm leading-relaxed mb-6 line-clamp-3">{{ service.description }}</p>
                       <div class="mt-auto">
-                        <button class="w-full h-12 rounded-xl bg-primary hover:bg-primary-hover text-[#0A0A0A] text-sm font-bold uppercase tracking-wider shadow-gold hover:shadow-gold-glow transition-all flex items-center justify-center gap-2">
+                        <button class="w-full h-12 rounded-xl bg-primary hover:bg-primary-hover text-[#0A0A0A] text-sm font-bold uppercase tracking-wider shadow-gold hover:shadow-gold-glow transition-all flex items-center justify-center gap-2 btn-primary-shimmer active:scale-[0.98]">
                           <span>Secure Consultation</span>
                           <span class="material-symbols-outlined text-base transition-transform group-hover:translate-x-1">arrow_forward</span>
                         </button>
