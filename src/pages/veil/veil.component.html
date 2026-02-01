@@ -1,0 +1,212 @@
+
+<!-- Main Page Content -->
+<div class="flex-1 overflow-y-auto p-8 custom-scrollbar animate-page-enter">
+  
+  <!-- Header Section -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+    <div>
+      <h1 class="text-4xl font-serif text-gray-900 mb-2">Bridal Gown Collection</h1>
+      <p class="text-gray-500 font-light text-lg">Exquisite wedding dresses and their characteristics.</p>
+    </div>
+    <button (click)="openAddModal()" class="bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 font-medium">
+      <span class="material-symbols-outlined text-xl">add</span>
+      <span>Add New Gown</span>
+    </button>
+  </div>
+
+  <!-- Veil Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    @for (veil of veils(); track veil.id; let i = $index) {
+      <div class="bg-white rounded-2xl p-6 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] hover:shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] transition-all duration-300 group relative reveal-item" [style.animation-delay.ms]="i * 100">
+        
+        <!-- Top Section: Image & Price -->
+        <div class="flex justify-between items-start mb-6 relative">
+          <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-white shadow-md cursor-pointer" (click)="openImageModal(veil.image)">
+            <img [src]="veil.image" [alt]="veil.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+          </div>
+          <span class="font-serif text-xl font-bold text-gray-900">{{ veil.price }} TJS</span>
+          <!-- Decorative Blur Effect -->
+          <div class="absolute -top-4 -right-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+        </div>
+
+        <!-- Title & SKU -->
+        <div class="mb-6">
+          <h3 class="text-2xl font-serif text-gray-900 mb-1">{{ veil.name }}</h3>
+          <p class="text-xs tracking-wider text-gray-500 uppercase font-medium">{{ veil.sku }}</p>
+        </div>
+
+        <!-- Attributes Box -->
+        <div class="bg-gray-50 rounded-xl p-5 mb-6 space-y-3">
+          <div class="flex justify-between items-center text-sm border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+            <span class="text-gray-500">Silhouette</span>
+            <span class="font-semibold font-serif text-gray-900">{{ veil.silhouette }}</span>
+          </div>
+          <div class="flex justify-between items-center text-sm border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+            <span class="text-gray-500">Neckline</span>
+            <span class="font-semibold font-serif text-gray-900">{{ veil.neckline }}</span>
+          </div>
+          <div class="flex justify-between items-center text-sm border-b border-gray-100 pb-2 last:border-0 last:pb-0">
+            <span class="text-gray-500">Fabric</span>
+            <span class="font-semibold font-serif text-gray-900">{{ veil.fabric }}</span>
+          </div>
+          <div class="flex justify-between items-center text-sm">
+            <span class="text-gray-500">Train Length</span>
+            <span class="font-semibold font-serif text-gray-900">{{ veil.trainLength }}</span>
+          </div>
+        </div>
+
+        <!-- Footer: Status & Action -->
+        <div class="flex items-center justify-between pt-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full" [class]="veil.stock > 0 ? 'bg-green-500 ' + (veil.stock > 1 ? 'animate-pulse' : '') : 'bg-yellow-500'"></span>
+            <span class="text-sm font-medium text-gray-900">{{ veil.stock > 0 ? veil.stock + ' Available' : 'Out of Stock' }}</span>
+          </div>
+          <button (click)="openEditModal(veil)" class="flex items-center gap-1 text-primary hover:text-primary-hover transition-colors text-sm font-medium group-hover:translate-x-1 transition-transform">
+            <span class="material-symbols-outlined text-base">edit</span>
+            Edit
+          </button>
+        </div>
+
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Edit Modal -->
+@if (isEditModalOpen()) {
+   <div class="fixed inset-0 z-[120] overflow-y-auto" role="dialog" aria-modal="true">
+      <!-- Backdrop -->
+      <div class="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity animate-fade-in" (click)="closeEditModal()"></div>
+      
+      <div class="flex min-h-screen items-center justify-center p-4">
+         <div class="relative w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all border border-gold/10 animate-slide-up">
+            
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+              <h3 class="text-xl font-serif font-bold text-gray-900">
+                {{ tempVeil.id === 0 ? 'Add New Gown' : 'Edit Gown Details' }}
+              </h3>
+              <button (click)="closeEditModal()" class="text-gray-400 hover:text-gray-500 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <div class="px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-x-8">
+              <!-- Image Uploader -->
+              <div class="md:col-span-1 space-y-2 mb-6 md:mb-0">
+                  <label class="block text-sm font-medium text-gray-700">Gown Image</label>
+                  <div (click)="fileInput.click()" class="aspect-square w-full rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center relative group cursor-pointer hover:border-gold transition-colors bg-gray-50">
+                      @if (tempVeil.image) {
+                          <img [src]="tempVeil.image" alt="Gown preview" class="w-full h-full object-cover rounded-lg absolute inset-0">
+                          <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
+                            <div class="text-center text-white">
+                              <span class="material-symbols-outlined text-3xl">edit</span>
+                              <p class="text-xs mt-1 font-semibold">Change Image</p>
+                            </div>
+                          </div>
+                      } @else {
+                          <div class="text-center text-gray-500">
+                              <span class="material-symbols-outlined text-4xl">add_photo_alternate</span>
+                              <p class="text-xs mt-2 font-semibold">Click to upload</p>
+                          </div>
+                      }
+                  </div>
+                  <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" accept="image/png, image/jpeg, image/webp">
+              </div>
+              
+              <!-- Form Fields -->
+              <div class="md:col-span-2 space-y-5">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">Name</label>
+                      <input type="text" [(ngModel)]="tempVeil.name" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">Price (TJS)</label>
+                      <input type="number" [(ngModel)]="tempVeil.price" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">SKU</label>
+                      <input type="text" [(ngModel)]="tempVeil.sku" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">Stock Quantity</label>
+                      <input type="number" [(ngModel)]="tempVeil.stock" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">Silhouette</label>
+                      <input type="text" [(ngModel)]="tempVeil.silhouette" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">Neckline</label>
+                      <input type="text" [(ngModel)]="tempVeil.neckline" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">Fabric</label>
+                      <input type="text" [(ngModel)]="tempVeil.fabric" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                    <div class="space-y-2">
+                      <label class="block text-sm font-medium text-gray-700">Train Length</label>
+                      <input type="text" [(ngModel)]="tempVeil.trainLength" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 gap-3">
+              <button (click)="saveVeil()" type="button" class="inline-flex justify-center rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-gold/30 hover:bg-gold-dark hover:shadow-gold/50 transition-all transform active:scale-95">
+                {{ tempVeil.id === 0 ? 'Create Gown' : 'Save Changes' }}
+              </button>
+              <button (click)="closeEditModal()" type="button" class="inline-flex justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-all">
+                Cancel
+              </button>
+            </div>
+         </div>
+      </div>
+   </div>
+}
+
+<!-- Fullscreen Image Modal (Retained functionality) -->
+@if (selectedImage()) {
+  <div class="fixed inset-0 z-[150] flex items-center justify-center" role="dialog" aria-modal="true">
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity animate-fade-in" (click)="closeImageModal()"></div>
+      
+      <!-- Close Button -->
+      <button (click)="closeImageModal()" class="fixed top-6 right-6 z-[160] text-white/50 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full cursor-pointer">
+          <span class="sr-only">Close</span>
+          <span class="material-symbols-outlined text-4xl">close</span>
+      </button>
+
+      <!-- Modal Content -->
+      <div class="relative z-[155] w-full h-full p-4 md:p-12 flex flex-col items-center justify-center pointer-events-none">
+          <div class="pointer-events-auto relative rounded-lg overflow-hidden shadow-2xl bg-transparent animate-slide-up flex items-center justify-center min-w-[300px] min-h-[300px]">
+             
+             <!-- Loading State -->
+             @if (isImageLoading()) {
+                <div class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+                    <div class="w-12 h-12 border-4 border-white/20 border-t-gold rounded-full animate-spin mb-3"></div>
+                    <p class="text-white/60 text-[10px] uppercase tracking-[0.2em] font-medium animate-pulse">Loading Asset</p>
+                </div>
+             }
+
+             <img [src]="selectedImage()" 
+                  (load)="onImageLoad()"
+                  alt="Full screen view" 
+                  class="max-w-full max-h-[85vh] object-contain shadow-2xl transition-all duration-700 ease-out"
+                  [class.opacity-0]="isImageLoading()"
+                  [class.scale-95]="isImageLoading()"
+                  [class.opacity-100]="!isImageLoading()"
+                  [class.scale-100]="!isImageLoading()"
+             >
+          </div>
+          
+          <p class="text-white/40 text-xs mt-6 font-medium tracking-[0.3em] uppercase animate-fade-in text-center">Mavluda Beauty • Gown Collection</p>
+      </div>
+  </div>
+}

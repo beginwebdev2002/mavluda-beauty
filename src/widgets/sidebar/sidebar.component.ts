@@ -1,4 +1,3 @@
-
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
@@ -75,7 +74,8 @@ interface MenuItem {
   `
 })
 export class SidebarComponent {
-  private router = inject(Router);
+  // Fix: Add explicit type `Router` to injected router to resolve type inference issue.
+  private router: Router = inject(Router);
   currentUrl = signal('/');
 
   menuItems = signal<MenuItem[]>([
