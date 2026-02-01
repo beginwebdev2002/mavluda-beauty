@@ -4,11 +4,12 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { LanguageSwitcherComponent } from '../../features/language-selection/language-switcher.component';
 
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LanguageSwitcherComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
@@ -23,6 +24,7 @@ export class AuthComponent {
   
   isLoading = signal(false);
   showPassword = signal(false);
+  isDarkMode = signal(this.document.documentElement.classList.contains('dark'));
 
   loginForm = this.fb.group({
     email: ['admin@mavluda.beauty', [Validators.required, Validators.email]],
@@ -40,6 +42,7 @@ export class AuthComponent {
 
   toggleTheme() {
     this.document.documentElement.classList.toggle('dark');
+    this.isDarkMode.set(this.document.documentElement.classList.contains('dark'));
   }
 
   continueWithTelegram() {

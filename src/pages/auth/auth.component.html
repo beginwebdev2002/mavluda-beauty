@@ -103,13 +103,13 @@
       </div>
     </div>
 
-    <div class="mt-8 flex justify-center space-x-6">
+    <div class="mt-8 flex justify-center items-center space-x-6">
       <button (click)="toggleTheme()" class="text-gray-400 hover:text-primary transition-colors flex items-center space-x-2 text-sm">
         <span class="material-symbols-outlined text-[18px]">dark_mode</span>
         <span>Switch Theme</span>
       </button>
       <div class="text-gray-700 dark:text-gray-600">|</div>
-      <button class="text-gray-400 hover:text-primary transition-colors text-sm">English (UK)</button>
+      <app-language-switcher [variant]="isDarkMode() ? 'dark' : 'light'"></app-language-switcher>
     </div>
   </main>
 
