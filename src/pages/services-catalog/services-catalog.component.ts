@@ -78,7 +78,7 @@ interface Service {
                   <article class="group relative flex flex-col h-full reveal-item" [style.animation-delay.ms]="i * 100">
                     <div class="relative aspect-[4/5] w-full overflow-hidden rounded-3xl mb-6 shadow-2xl shadow-black/50">
                       <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 transition-opacity duration-300 opacity-60 group-hover:opacity-40"></div>
-                      <img [ngSrc]="service.imageUrl" [alt]="service.name" width="800" height="1000" priority
+                      <img [ngSrc]="service.imageUrl" [alt]="service.name" fill priority
                            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 filter saturate-[0.9] group-hover:saturate-100"/>
                       <div class="absolute bottom-6 right-6 z-20">
                         <div class="bg-black/80 backdrop-blur-md border border-primary/40 pl-4 pr-5 py-2 rounded-full flex items-center gap-3">

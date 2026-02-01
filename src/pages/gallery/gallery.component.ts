@@ -49,7 +49,7 @@ interface GalleryImage {
               <span class="material-symbols-outlined">list</span>
             </button>
           </div>
-          <button class="flex items-center px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-lg shadow-gold hover:shadow-gold-lg transition-all font-medium">
+          <button (click)="openAddModal()" class="flex items-center px-5 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-lg shadow-gold hover:shadow-gold-lg transition-all font-medium">
             <span class="material-symbols-outlined mr-2">add_photo_alternate</span>
             Upload New Image
           </button>
@@ -92,11 +92,14 @@ interface GalleryImage {
         <!-- Image Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 animate-page-enter">
           @for(image of filteredImages(); track image.id; let i = $index) {
-            <div (click)="openModal(image)" class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1 reveal-item cursor-pointer" [style.animation-delay.ms]="i * 75">
-              <div class="relative aspect-[4/5] overflow-hidden">
-                <img [ngSrc]="image.url" [alt]="image.alt" width="400" height="500" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+            <div class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1 reveal-item" [style.animation-delay.ms]="i * 75">
+              <div (click)="openImageModal(image.url)" class="relative aspect-[4/5] overflow-hidden cursor-pointer">
+                <img [ngSrc]="image.url" [alt]="image.alt" fill class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
                 <div class="absolute top-4 left-4 bg-gray-900/80 backdrop-blur-sm px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider text-white shadow-sm">
                   {{ image.category }}
+                </div>
+                <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <span class="material-symbols-outlined text-white text-4xl p-4 bg-white/10 rounded-full backdrop-blur-sm">zoom_in</span>
                 </div>
               </div>
               <div class="p-5 flex-1 flex flex-col justify-between">
@@ -105,8 +108,14 @@ interface GalleryImage {
                   <p class="text-xs text-gray-400 font-mono truncate">{{ image.filename }}</p>
                 </div>
                 <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
-                  <span class="text-xs text-gray-500">{{ image.date }}</span>
-                  <span class="w-2.5 h-2.5 rounded-full" [class]="image.status === 'published' ? 'bg-green-500' : 'bg-yellow-500'" [title]="image.status"></span>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full" [class]="image.status === 'published' ? 'bg-green-500' : 'bg-yellow-500'" [title]="image.status"></span>
+                    <span class="text-xs text-gray-500">{{ image.date }}</span>
+                  </div>
+                  <button (click)="openModal(image)" class="flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-primary transition-all opacity-0 group-hover:opacity-100 duration-300" aria-label="Edit image details">
+                    <span class="material-symbols-outlined !text-base">edit</span>
+                    Edit
+                  </button>
                 </div>
               </div>
             </div>
@@ -171,7 +180,7 @@ interface GalleryImage {
       <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-page-enter">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl overflow-hidden animate-slide-up">
           <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-            <h3 class="font-display text-xl text-gray-900">Edit Image Details</h3>
+            <h3 class="font-display text-xl text-gray-900">{{ currentImage.id === 0 ? 'Upload New Image' : 'Edit Image Details' }}</h3>
             <button (click)="closeModal()" class="text-gray-400 hover:text-gray-600">
               <span class="material-symbols-outlined">close</span>
             </button>
@@ -223,9 +232,55 @@ interface GalleryImage {
           </div>
           <div class="px-6 py-4 bg-gray-50 flex justify-end space-x-3">
             <button (click)="closeModal()" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg text-sm font-medium transition-colors">Cancel</button>
-            <button (click)="saveImage()" class="px-4 py-2 bg-primary text-black hover:bg-primary-hover rounded-lg text-sm font-medium transition-colors shadow-md">Save Changes</button>
+            <button 
+              (click)="saveImage()" 
+              class="px-4 py-2 bg-primary text-black hover:bg-primary-hover rounded-lg text-sm font-medium transition-colors shadow-md disabled:bg-gray-300 disabled:cursor-not-allowed"
+              [disabled]="currentImage.id === 0 && !currentImage.url"
+            >
+              {{ currentImage.id === 0 ? 'Upload Image' : 'Save Changes' }}
+            </button>
           </div>
         </div>
+      </div>
+    }
+
+    <!-- Image Modal -->
+    @if (selectedImage()) {
+      <div class="fixed inset-0 z-[100] flex items-center justify-center" role="dialog" aria-modal="true">
+          <!-- Backdrop -->
+          <div class="absolute inset-0 bg-black/80 backdrop-blur-md transition-opacity animate-fade-in" (click)="closeImageModal()"></div>
+          
+          <!-- Close Button -->
+          <button (click)="closeImageModal()" class="fixed top-6 right-6 z-[110] text-white/50 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full cursor-pointer">
+              <span class="sr-only">Close</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+
+          <!-- Modal Content -->
+          <div class="relative z-[105] w-full h-full p-4 md:p-12 flex flex-col items-center justify-center pointer-events-none">
+              <div class="pointer-events-auto relative rounded-lg overflow-hidden shadow-2xl bg-transparent animate-slide-up flex items-center justify-center min-w-[300px] min-h-[300px]">
+                 
+                 <!-- Loading State -->
+                 @if (isImageLoading()) {
+                    <div class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+                        <div class="w-12 h-12 border-4 border-white/20 border-t-gold rounded-full animate-spin mb-3"></div>
+                        <p class="text-white/60 text-[10px] uppercase tracking-[0.2em] font-medium animate-pulse">Loading Asset</p>
+                    </div>
+                 }
+
+                 <img [src]="selectedImage()" 
+                      (load)="onImageLoad()"
+                      alt="Gallery image full screen view" 
+                      class="max-w-full max-h-[85vh] object-contain shadow-2xl transition-all duration-700 ease-out"
+                      [class.opacity-0]="isImageLoading()"
+                      [class.scale-95]="isImageLoading()"
+                      [class.opacity-100]="!isImageLoading()"
+                      [class.scale-100]="!isImageLoading()"
+                 >
+              </div>
+              
+              <p class="text-white/40 text-xs mt-6 font-medium tracking-[0.3em] uppercase animate-fade-in text-center">Mavluda Beauty • Portfolio</p>
+          </div>
       </div>
     }
   `
@@ -234,6 +289,8 @@ export class GalleryComponent {
   isDragging = signal(false);
   isModalOpen = signal(false);
   viewMode = signal<'grid' | 'list'>('grid');
+  selectedImage = signal<string | null>(null);
+  isImageLoading = signal(false);
   
   images = signal<GalleryImage[]>([
     { id: 1, url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB4Ur5-ti_mA9kxtMS7fly6QkCTl8teUtJXWEQYP4kJCdwk74MdKAC0xJUFZlzkm_fXCtEqPmEw8yb5XDjo6CTqrEydTP7KT3oaUie94cqvHjAF9uPXBic8rATeT5-x4ELENLQtMMYYSmyDRBZbtHcA5u2FhAhKa20_HAMf17ZKJRb2YNs0nW0Ts2kITj0Je2ZI3gbzJp3dm68FxcsqvisR5GdcpWvM0rE57Vpml4AZAAIDTOC47g1Wrl0BWnLJziQdsmyqWk1bHfEr', title: 'Laser Procedure #04', filename: 'IMG_2824_18_24.jpg', category: 'Medical Spa', date: 'Oct 24, 2024', status: 'published', alt: 'Laser skin treatment on an arm' },
@@ -257,6 +314,24 @@ export class GalleryComponent {
 
   currentImage!: GalleryImage;
 
+  getEmptyImage(): GalleryImage {
+    return {
+      id: 0,
+      url: '',
+      title: '',
+      filename: '',
+      category: 'Visage', // Default
+      date: '', // Will be set on save
+      status: 'draft',
+      alt: ''
+    };
+  }
+
+  openAddModal() {
+    this.currentImage = this.getEmptyImage();
+    this.isModalOpen.set(true);
+  }
+
   openModal(image: GalleryImage) {
     this.currentImage = { ...image }; // Create a copy for editing
     this.isModalOpen.set(true);
@@ -267,20 +342,52 @@ export class GalleryComponent {
   }
 
   saveImage() {
-    this.images.update(imgs => 
-      imgs.map(img => img.id === this.currentImage.id ? this.currentImage : img)
-    );
+    if (this.currentImage.id === 0) { // New image
+      const newId = this.images().length > 0 ? Math.max(...this.images().map(i => i.id)) + 1 : 1;
+      const today = new Date();
+      const newImage: GalleryImage = {
+        ...this.currentImage,
+        id: newId,
+        date: today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        status: 'draft',
+      };
+      if (!newImage.filename) {
+        newImage.filename = `new_image_${newId}.jpg`;
+      }
+      this.images.update(imgs => [newImage, ...imgs]);
+    } else { // Update existing
+      this.images.update(imgs => 
+        imgs.map(img => img.id === this.currentImage.id ? this.currentImage : img)
+      );
+    }
     this.closeModal();
   }
   
   deleteImage(id: number) {
     this.images.update(imgs => imgs.filter(img => img.id !== id));
   }
+  
+  openImageModal(imageUrl: string) {
+    this.selectedImage.set(imageUrl);
+    this.isImageLoading.set(true);
+  }
+
+  closeImageModal() {
+    this.selectedImage.set(null);
+    this.isImageLoading.set(false);
+  }
+
+  onImageLoad() {
+    this.isImageLoading.set(false);
+  }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
         const file = input.files[0];
+        if (this.currentImage.id === 0) {
+            this.currentImage.filename = file.name;
+        }
         const reader = new FileReader();
         reader.onload = (e: any) => {
             this.currentImage.url = e.target.result;

@@ -82,7 +82,7 @@ import { LanguageSwitcherComponent } from '../../features/language-selection/lan
             @if (heroImage(); as hero) {
               <div class="col-span-4 md:col-span-3 row-span-3 overflow-hidden relative">
                 <div class="absolute inset-0 bg-black/10 z-10"></div>
-                <img [ngSrc]="hero.url" [alt]="hero.alt" width="1800" height="1200" priority class="w-full h-full object-cover animate-ken-burns">
+                <img [ngSrc]="hero.url" [alt]="hero.alt" width="1200" height="1800" priority class="w-full h-full object-cover animate-ken-burns">
               </div>
             }
             <!-- Secondary Images (Hidden on mobile for cleaner look) -->

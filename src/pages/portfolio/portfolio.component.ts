@@ -9,10 +9,8 @@ interface PortfolioItem {
   title: string;
   description: string;
   statusTag?: string;
-  width: number;
-  height: number;
   effects?: string;
-  aspectClass?: string;
+  aspectClass: string;
 }
 
 @Component({
@@ -55,17 +53,11 @@ interface PortfolioItem {
                 <div class="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
                     @for(item of filteredItems(); track item.id; let i = $index) {
                         <div class="break-inside-avoid group relative rounded-3xl bg-gray-900 overflow-hidden cursor-pointer hover-shimmer-border reveal-item" [style.animation-delay.ms]="i * 100">
-                            @if (item.aspectClass) {
-                                <div class="relative w-full" [class]="item.aspectClass">
-                                    <img [ngSrc]="item.imageUrl" [alt]="item.title" [width]="item.width" [height]="item.height"
-                                        class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 animate-ken-burns"
-                                        [class]="item.effects || ''"/>
-                                </div>
-                            } @else {
-                                <img [ngSrc]="item.imageUrl" [alt]="item.title" [width]="item.width" [height]="item.height"
-                                    class="w-full h-auto object-cover opacity-90 group-hover:opacity-100 animate-ken-burns"
+                            <div class="relative w-full" [class]="item.aspectClass">
+                                <img [ngSrc]="item.imageUrl" [alt]="item.title" fill
+                                    class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 animate-ken-burns"
                                     [class]="item.effects || ''"/>
-                            }
+                            </div>
                             
                             @if(item.statusTag) {
                                 <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10 z-20">
@@ -105,7 +97,7 @@ export class PortfolioPageComponent {
       category: 'Editorial',
       title: 'Vogue Feature 2024',
       description: 'High-contrast artistic makeup focusing on natural glow and contour definition.',
-      width: 800, height: 1000
+      aspectClass: 'aspect-[4/5]',
     },
     {
       id: 2,
@@ -114,7 +106,7 @@ export class PortfolioPageComponent {
       title: 'Full Face Harmonization',
       description: 'Non-surgical rhinoplasty and chin augmentation profile balancing.',
       statusTag: 'Healed Result',
-      width: 800, height: 1200
+      aspectClass: 'aspect-[2/3]',
     },
     {
       id: 3,
@@ -122,7 +114,7 @@ export class PortfolioPageComponent {
       category: 'Professional Visage',
       title: 'Bridal Radiance',
       description: 'Long-wear, photographic finish for luxury weddings.',
-      width: 1000, height: 800
+      aspectClass: 'aspect-[5/4]',
     },
     {
       id: 4,
@@ -131,7 +123,6 @@ export class PortfolioPageComponent {
       title: 'Golden Hour Series',
       description: 'Concept shoot exploring texture and metallic tones.',
       effects: 'grayscale group-hover:grayscale-0',
-      width: 800, height: 1067,
       aspectClass: 'aspect-[3/4]',
     },
     {
@@ -141,7 +132,7 @@ export class PortfolioPageComponent {
       title: 'Signature Lip Contour',
       description: 'Russian technique volume enhancement with natural borders.',
       statusTag: '4 Weeks Post-Op',
-      width: 800, height: 1000
+      aspectClass: 'aspect-[4/5]',
     },
     {
       id: 6,
@@ -150,7 +141,7 @@ export class PortfolioPageComponent {
       title: 'Age-Defying Protocol',
       description: 'Full face lifting using advanced thread techniques.',
       effects: 'sepia-[.2] group-hover:sepia-0',
-      width: 800, height: 1000
+      aspectClass: 'aspect-[4/5]',
     },
     {
       id: 7,
@@ -158,7 +149,6 @@ export class PortfolioPageComponent {
       category: 'Professional Visage',
       title: 'Color Theory',
       description: 'Masterclass demonstration look.',
-      width: 800, height: 800,
       aspectClass: 'aspect-square',
     }
   ]);

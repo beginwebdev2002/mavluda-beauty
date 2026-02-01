@@ -49,7 +49,7 @@ import { RouterLink } from '@angular/router';
                 <div class="relative order-1 lg:order-2">
                     <div class="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-2xl shadow-black">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-                        <img ngSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuCnLA3tyCDcRymBx90wrQjtgGrWXr_0vKq72g14XO5LhCtxN0fIKkFn9IKD6M6rsiu2j-1__eQ3HJiho2vFk_lUHKNgfQNS64FGix2N4F6nBTaf3Rj8L6dICODAdpKFsPPMxMl_Pmvzxp-eFvAmxPVLjUW97KBGsfct4_5BDBksKXVjK3k0-dAiz7QQdGnsOy0tfeqFvOTrXr6fFz-G7dqpR1pQtskfaENZz1vQbsl1ShEaci5i8fDDN3Z_aU8hZQl4VkxlfL-rO07R" width="800" height="1000" priority alt="High-end beauty portrait showing flawless skin and aesthetic treatments" class="h-full w-full object-cover transform hover:scale-105 transition-transform duration-700"/>
+                        <img ngSrc="https://lh3.googleusercontent.com/aida-public/AB6AXuCnLA3tyCDcRymBx90wrQjtgGrWXr_0vKq72g14XO5LhCtxN0fIKkFn9IKD6M6rsiu2j-1__eQ3HJiho2vFk_lUHKNgfQNS64FGix2N4F6nBTaf3Rj8L6dICODAdpKFsPPMxMl_Pmvzxp-eFvAmxPVLjUW97KBGsfct4_5BDBksKXVjK3k0-dAiz7QQdGnsOy0tfeqFvOTrXr6fFz-G7dqpR1pQtskfaENZz1vQbsl1ShEaci5i8fDDN3Z_aU8hZQl4VkxlfL-rO07R" fill priority alt="High-end beauty portrait showing flawless skin and aesthetic treatments" class="h-full w-full object-cover transform hover:scale-105 transition-transform duration-700"/>
                         <!-- Floating Badge -->
                         <div class="absolute bottom-8 left-8 right-8 z-20">
                             <div class="bg-[#1a1a1a]/90 backdrop-blur-md p-4 rounded-lg border border-[#333] flex items-center justify-between gap-4">
