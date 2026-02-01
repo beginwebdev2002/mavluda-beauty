@@ -1,0 +1,128 @@
+
+<div class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200 font-body transition-colors duration-300 min-h-screen animate-page-enter">
+  
+  <!-- Page Header -->
+  <header class="pt-24 pb-16 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+      <span class="text-primary text-xs font-bold tracking-[0.2em] uppercase mb-4 block">Timeless Elegance</span>
+      <h1 class="font-serif text-5xl md:text-7xl text-gray-900 dark:text-white mb-6">
+        Bridal <span class="gold-gradient-text italic font-normal">Collection</span>
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg font-light leading-relaxed">
+        Discover our curated selection of haute couture gowns. Each piece is a masterpiece of design, crafted to celebrate the unique beauty of every bride.
+      </p>
+    </div>
+  </header>
+
+  <!-- Filter Bar -->
+  <div class="sticky top-20 z-40 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md py-6 mb-12 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <div class="flex flex-wrap justify-center gap-4 px-4">
+      @for (filter of filters; track filter) {
+        <button 
+          (click)="setFilter(filter)"
+          class="px-6 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all"
+          [class]="activeFilter() === filter 
+            ? 'bg-primary text-black' 
+            : 'border border-gray-300 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-primary hover:text-primary bg-transparent'"
+        >
+          {{ filter }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+      @for (gown of filteredGowns(); track gown.id; let i = $index) {
+        <div class="group cursor-pointer reveal-item" [style.animation-delay.ms]="i * 100">
+          <div class="relative overflow-hidden aspect-[3/4] mb-6 cursor-zoom-in" (click)="openImageModal(gown.image); $event.stopPropagation()">
+            @if (gown.isNew) {
+              <div class="absolute top-4 right-4 z-10 bg-primary text-black text-[10px] font-bold px-2 py-1 uppercase tracking-wider">New Arrival</div>
+            }
+            @if (gown.isBestSeller) {
+              <div class="absolute top-4 right-4 z-10 bg-white/10 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-2 py-1 uppercase tracking-wider">Best Seller</div>
+            }
+            
+            <img 
+              [ngSrc]="gown.image" 
+              [alt]="gown.name" 
+              width="600" 
+              height="800" 
+              class="object-cover w-full h-full transform transition-transform duration-700 group-hover:scale-105 filter grayscale-[20%] group-hover:grayscale-0"
+            />
+            
+            <!-- Zoom Overlay -->
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+               <span class="material-symbols-outlined text-white text-4xl drop-shadow-lg transform scale-75 group-hover:scale-100 transition-transform duration-300 p-4 bg-white/10 rounded-full backdrop-blur-sm">zoom_in_map</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-col items-center text-center">
+            <h3 class="font-serif text-2xl text-gray-900 dark:text-white mb-2 group-hover:text-primary transition-colors">{{ gown.name }}</h3>
+            <div class="w-12 h-px bg-primary/30 mb-3"></div>
+            <p class="text-gray-500 dark:text-gray-400 font-light mb-4 text-sm tracking-wide">{{ gown.price | number }} TJS</p>
+            <a class="text-xs font-bold uppercase tracking-widest border-b border-primary pb-1 hover:text-primary transition-colors">View Details</a>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Load More -->
+    <div class="mt-24 text-center">
+      <button class="inline-flex items-center gap-2 text-sm font-bold tracking-widest uppercase border border-gray-300 dark:border-gray-700 px-8 py-4 hover:border-primary hover:text-primary transition-all rounded-full group text-gray-600 dark:text-gray-300">
+        Load More Gowns
+        <span class="material-symbols-outlined text-lg group-hover:translate-y-1 transition-transform">expand_more</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- Fixed Booking Button -->
+  <div class="fixed bottom-8 right-8 z-50">
+    <button class="bg-primary hover:bg-primary-hover text-black font-bold py-4 px-8 rounded-full shadow-2xl hover:shadow-primary/50 transition-all transform hover:-translate-y-1 flex items-center gap-2 group">
+      <span class="material-symbols-outlined">calendar_today</span>
+      <span class="tracking-widest uppercase text-xs">Book a Fitting</span>
+    </button>
+  </div>
+
+</div>
+
+<!-- Fullscreen Image Modal -->
+@if (selectedImage()) {
+  <div class="fixed inset-0 z-[150] flex items-center justify-center" role="dialog" aria-modal="true">
+      <!-- Backdrop -->
+      <div class="absolute inset-0 bg-black/90 backdrop-blur-md transition-opacity animate-fade-in" (click)="closeImageModal()"></div>
+      
+      <!-- Close Button -->
+      <button (click)="closeImageModal()" class="fixed top-6 right-6 z-[160] text-white/50 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary">
+          <span class="sr-only">Close</span>
+          <span class="material-symbols-outlined text-4xl">close</span>
+      </button>
+
+      <!-- Modal Content -->
+      <div class="relative z-[155] w-full h-full p-4 md:p-12 flex flex-col items-center justify-center pointer-events-none">
+          <div class="pointer-events-auto relative rounded-lg overflow-hidden shadow-2xl bg-transparent animate-slide-up flex items-center justify-center min-w-[300px] min-h-[300px]">
+             
+             <!-- Loading State -->
+             @if (isImageLoading()) {
+                <div class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm">
+                    <div class="w-12 h-12 border-4 border-white/20 border-t-gold rounded-full animate-spin mb-3"></div>
+                    <p class="text-white/60 text-[10px] uppercase tracking-[0.2em] font-medium animate-pulse">Loading Asset</p>
+                </div>
+             }
+
+             <img [src]="selectedImage()" 
+                  (load)="onImageLoad()"
+                  alt="Full screen view" 
+                  class="max-w-full max-h-[85vh] object-contain shadow-2xl transition-all duration-700 ease-out"
+                  [class.opacity-0]="isImageLoading()"
+                  [class.scale-95]="isImageLoading()"
+                  [class.opacity-100]="!isImageLoading()"
+                  [class.scale-100]="!isImageLoading()"
+             >
+          </div>
+          
+          <p class="text-white/40 text-xs mt-6 font-medium tracking-[0.3em] uppercase animate-fade-in text-center">Mavluda Beauty • Bridal Collection</p>
+      </div>
+  </div>
+}

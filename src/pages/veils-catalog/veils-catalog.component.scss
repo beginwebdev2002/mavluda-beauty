@@ -1,0 +1,14 @@
+
+.gold-gradient-text {
+    background: linear-gradient(to right, #D4AF37, #FFE599, #D4AF37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}

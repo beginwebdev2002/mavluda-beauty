@@ -23,6 +23,7 @@ import { CommonModule } from '@angular/common';
                     <!-- Desktop Nav -->
                     <nav class="hidden md:flex items-center gap-8">
                         <a routerLink="/user/home" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Home</a>
+                        <a routerLink="/user/collection" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Collection</a>
                         <a routerLink="/user/services" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Services</a>
                         <a routerLink="/user/portfolio" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">Portfolio</a>
                         <a routerLink="/user/about" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium uppercase tracking-wide">About</a>
@@ -49,6 +50,7 @@ import { CommonModule } from '@angular/common';
                 <div class="mt-20 flex flex-col items-center justify-center h-full animate-in fade-in slide-in-from-top-4 duration-500">
                     <nav class="flex flex-col items-center gap-8 text-center" (click)="$event.stopPropagation()">
                         <a (click)="toggleMobileMenu()" routerLink="/user/home" routerLinkActive="text-primary" [routerLinkActiveOptions]="{exact: true}" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Home</a>
+                        <a (click)="toggleMobileMenu()" routerLink="/user/collection" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Collection</a>
                         <a (click)="toggleMobileMenu()" routerLink="/user/services" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Services</a>
                         <a (click)="toggleMobileMenu()" routerLink="/user/portfolio" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">Portfolio</a>
                         <a (click)="toggleMobileMenu()" routerLink="/user/about" routerLinkActive="text-primary" class="text-gray-300 hover:text-primary transition-colors text-2xl font-medium uppercase tracking-widest">About</a>
@@ -84,6 +86,7 @@ import { CommonModule } from '@angular/common';
                         <h4 class="text-white font-bold mb-6">Menu</h4>
                         <ul class="flex flex-col gap-4 text-gray-400">
                             <li><a routerLink="/user/services" class="hover:text-primary transition-colors">Services</a></li>
+                            <li><a routerLink="/user/collection" class="hover:text-primary transition-colors">Collection</a></li>
                             <li><a routerLink="/user/portfolio" class="hover:text-primary transition-colors">Portfolio</a></li>
                             <li><a routerLink="/user/about" class="hover:text-primary transition-colors">About</a></li>
                             <li><a routerLink="/user/about" fragment="contact" class="hover:text-primary transition-colors">Contact</a></li>

@@ -14,6 +14,7 @@ import { PortfolioPageComponent } from './pages/portfolio/portfolio.component';
 import { AboutComponent } from './pages/about/about.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { GalleryComponent } from './pages/gallery/gallery.component';
+import { VeilsCatalogComponent } from './pages/veils-catalog/veils-catalog.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -41,6 +42,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: UserHomeComponent },
+      { path: 'collection', component: VeilsCatalogComponent },
       { path: 'services', component: ServicesCatalogComponent },
       { path: 'portfolio', component: PortfolioPageComponent },
       { path: 'about', component: AboutComponent },
