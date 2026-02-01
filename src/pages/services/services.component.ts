@@ -180,76 +180,76 @@ interface ServiceItem {
            }
         </div>
       }
-
-      <!-- Edit Modal -->
-      @if (isEditModalOpen()) {
-        <div class="fixed inset-0 z-[100] overflow-y-auto" role="dialog" aria-modal="true">
-          <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-fade-in" (click)="closeEditModal()"></div>
-
-          <div class="flex min-h-screen items-center justify-center p-4">
-             <div class="relative w-full max-w-lg transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all border border-gold/10 animate-slide-up">
-                
-                <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
-                  <h3 class="text-xl font-serif font-bold text-gray-900">
-                    {{ tempService.id === 0 ? 'Add New Service' : 'Edit Service' }}
-                  </h3>
-                  <button (click)="closeEditModal()" class="text-gray-400 hover:text-gray-500 transition-colors">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                  </button>
-                </div>
-
-                <div class="px-6 py-6 space-y-5">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Service Name</label>
-                    <input type="text" [(ngModel)]="tempService.name" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
-                      <select [(ngModel)]="tempService.category" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
-                         <option value="Injectables">Injectables</option>
-                         <option value="Facials">Facials</option>
-                         <option value="Laser">Laser</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-1.5">Price (TJS)</label>
-                      <input type="number" [(ngModel)]="tempService.price" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label class="block text-sm font-medium text-gray-700 mb-1.5">Duration</label>
-                      <input type="text" [(ngModel)]="tempService.duration" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
-                    </div>
-
-                    <div>
-                       <label class="block text-sm font-medium text-gray-700 mb-1.5">Status</label>
-                       <button (click)="toggleTempActive()" type="button" 
-                         [class]="tempService.active ? 'bg-green-50 text-green-700 border-green-200 ring-green-500/20' : 'bg-red-50 text-red-700 border-red-200 ring-red-500/20'" 
-                         class="w-full inline-flex justify-center items-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all border hover:opacity-90">
-                            {{ tempService.active ? 'Active' : 'Inactive' }}
-                       </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 gap-3">
-                  <button (click)="saveEdit()" type="button" class="inline-flex justify-center rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-gold/30 hover:bg-gold-dark hover:shadow-gold/50 transition-all transform active:scale-95">
-                    {{ tempService.id === 0 ? 'Create Service' : 'Save Changes' }}
-                  </button>
-                  <button (click)="closeEditModal()" type="button" class="inline-flex justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-all">
-                    Cancel
-                  </button>
-                </div>
-             </div>
-          </div>
-        </div>
-      }
     </div>
+
+    <!-- Edit Modal -->
+    @if (isEditModalOpen()) {
+      <div class="fixed inset-0 z-[100] overflow-y-auto" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-fade-in" (click)="closeEditModal()"></div>
+
+        <div class="flex min-h-screen items-center justify-center p-4">
+            <div class="relative w-full max-w-lg transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all border border-gold/10 animate-slide-up">
+              
+              <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                <h3 class="text-xl font-serif font-bold text-gray-900">
+                  {{ tempService.id === 0 ? 'Add New Service' : 'Edit Service' }}
+                </h3>
+                <button (click)="closeEditModal()" class="text-gray-400 hover:text-gray-500 transition-colors">
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+              </div>
+
+              <div class="px-6 py-6 space-y-5">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1.5">Service Name</label>
+                  <input type="text" [(ngModel)]="tempService.name" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
+                    <select [(ngModel)]="tempService.category" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
+                        <option value="Injectables">Injectables</option>
+                        <option value="Facials">Facials</option>
+                        <option value="Laser">Laser</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Price (TJS)</label>
+                    <input type="number" [(ngModel)]="tempService.price" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Duration</label>
+                    <input type="text" [(ngModel)]="tempService.duration" class="block w-full rounded-lg bg-white border border-gray-300 text-gray-900 focus:ring-2 focus:ring-gold/50 focus:border-gold sm:text-sm p-2.5 transition-all shadow-sm">
+                  </div>
+
+                  <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1.5">Status</label>
+                      <button (click)="toggleTempActive()" type="button" 
+                        [class]="tempService.active ? 'bg-green-50 text-green-700 border-green-200 ring-green-500/20' : 'bg-red-50 text-red-700 border-red-200 ring-red-500/20'" 
+                        class="w-full inline-flex justify-center items-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all border hover:opacity-90">
+                          {{ tempService.active ? 'Active' : 'Inactive' }}
+                      </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 gap-3">
+                <button (click)="saveEdit()" type="button" class="inline-flex justify-center rounded-lg bg-gold px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-gold/30 hover:bg-gold-dark hover:shadow-gold/50 transition-all transform active:scale-95">
+                  {{ tempService.id === 0 ? 'Create Service' : 'Save Changes' }}
+                </button>
+                <button (click)="closeEditModal()" type="button" class="inline-flex justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 transition-all">
+                  Cancel
+                </button>
+              </div>
+            </div>
+        </div>
+      </div>
+    }
   `
 })
 export class ServicesPageComponent {

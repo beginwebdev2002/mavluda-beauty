@@ -98,9 +98,9 @@ interface Veil {
                     </span>
                     <span class="text-sm font-medium text-gray-600">{{ veil.stock > 0 ? veil.stock + ' Available' : 'Out of Stock' }}</span>
                  </div>
-                 <button (click)="openEditModal(veil)" class="text-gold hover:text-gold-dark text-[11px] font-bold uppercase tracking-[0.2em] hover:underline transition-all decoration-gold/50 underline-offset-4 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
-                    DETAILS
+                 <button (click)="openEditModal(veil)" class="text-gold hover:text-gold-dark text-xs font-medium hover:underline transition-all decoration-gold/50 underline-offset-4 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined !text-sm !font-light">edit</span>
+                    <span>Edit</span>
                  </button>
               </div>
             </div>
@@ -116,7 +116,7 @@ interface Veil {
           <div class="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity animate-fade-in" (click)="closeEditModal()"></div>
           
           <div class="flex min-h-screen items-center justify-center p-4">
-             <div class="relative w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all border border-gold/10 animate-slide-up">
+             <div class="relative w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all border border-gold/10 animate-slide-up">
                 
                 <div class="bg-gray-50 px-6 py-4 border-b border-gray-100 flex justify-between items-center">
                   <h3 class="text-xl font-serif font-bold text-gray-900">
@@ -127,64 +127,78 @@ interface Veil {
                   </button>
                 </div>
 
-                <div class="px-6 py-6 space-y-6">
-                   <!-- Top Section: Name and Price -->
-                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-700">Veil Name</label>
-                        <input type="text" [(ngModel)]="tempVeil.name" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                <div class="px-6 py-6 grid grid-cols-1 md:grid-cols-3 gap-x-8">
+                  <!-- Image Uploader -->
+                  <div class="md:col-span-1 space-y-2 mb-6 md:mb-0">
+                      <label class="block text-sm font-medium text-gray-700">Veil Image</label>
+                      <div (click)="fileInput.click()" class="aspect-square w-full rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center relative group cursor-pointer hover:border-gold transition-colors bg-gray-50">
+                          @if (tempVeil.image) {
+                              <img [src]="tempVeil.image" alt="Veil preview" class="w-full h-full object-cover rounded-lg absolute inset-0">
+                              <div class="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
+                                <div class="text-center text-white">
+                                  <span class="material-symbols-outlined text-3xl">edit</span>
+                                  <p class="text-xs mt-1 font-semibold">Change Image</p>
+                                </div>
+                              </div>
+                          } @else {
+                              <div class="text-center text-gray-500">
+                                  <span class="material-symbols-outlined text-4xl">add_photo_alternate</span>
+                                  <p class="text-xs mt-2 font-semibold">Click to upload</p>
+                              </div>
+                          }
                       </div>
-                       <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-700">Price (TJS)</label>
-                        <input type="number" [(ngModel)]="tempVeil.price" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                      <input #fileInput type="file" class="hidden" (change)="onFileSelected($event)" accept="image/png, image/jpeg, image/webp">
+                  </div>
+                  
+                  <!-- Form Fields -->
+                  <div class="md:col-span-2 space-y-5">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                          <label class="block text-sm font-medium text-gray-700">Veil Name</label>
+                          <input type="text" [(ngModel)]="tempVeil.name" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        </div>
+                        <div class="space-y-2">
+                          <label class="block text-sm font-medium text-gray-700">Price (TJS)</label>
+                          <input type="number" [(ngModel)]="tempVeil.price" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        </div>
                       </div>
-                   </div>
-
-                   <!-- SKU & Stock -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-700">SKU</label>
-                        <input type="text" [(ngModel)]="tempVeil.sku" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                          <label class="block text-sm font-medium text-gray-700">SKU</label>
+                          <input type="text" [(ngModel)]="tempVeil.sku" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        </div>
+                        <div class="space-y-2">
+                          <label class="block text-sm font-medium text-gray-700">Stock Quantity</label>
+                          <input type="number" [(ngModel)]="tempVeil.stock" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                        </div>
                       </div>
-                       <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-700">Stock Quantity</label>
-                        <input type="number" [(ngModel)]="tempVeil.stock" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                      <div class="relative !mt-6 !mb-2">
+                        <div class="absolute inset-0 flex items-center" aria-hidden="true"><div class="w-full border-t border-gray-200"></div></div>
+                        <div class="relative flex justify-start"><span class="bg-white pr-2 text-sm text-gray-500 font-medium tracking-wide">Characteristics</span></div>
                       </div>
-                   </div>
-
-                   <!-- Characteristics Divider -->
-                   <div class="relative">
-                      <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div class="w-full border-t border-gray-200"></div>
-                      </div>
-                      <div class="relative flex justify-start">
-                        <span class="bg-white pr-2 text-sm text-gray-500 font-medium tracking-wide">Characteristics</span>
-                      </div>
-                    </div>
-
-                    <!-- Characteristics Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                       <div class="space-y-2">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Length</label>
                           <input type="text" [(ngModel)]="tempVeil.length" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
-                       </div>
-                       <div class="space-y-2">
+                        </div>
+                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Material</label>
                           <input type="text" [(ngModel)]="tempVeil.material" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
-                       </div>
-                       <div class="space-y-2">
+                        </div>
+                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Tier</label>
-                           <select [(ngModel)]="tempVeil.tiers" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
-                             <option>Single</option>
-                             <option>Double</option>
-                             <option>Triple</option>
-                           </select>
-                       </div>
-                       <div class="space-y-2">
+                          <select [(ngModel)]="tempVeil.tiers" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
+                            <option>Single</option>
+                            <option>Double</option>
+                            <option>Triple</option>
+                          </select>
+                        </div>
+                        <div class="space-y-2">
                           <label class="block text-sm font-medium text-gray-700">Edge Finish</label>
                           <input type="text" [(ngModel)]="tempVeil.edge" class="block w-full rounded-lg border-gray-300 bg-gray-50 text-gray-900 focus:bg-white focus:border-gold focus:ring-gold sm:text-sm p-2.5 transition-all">
-                       </div>
-                    </div>
+                        </div>
+                      </div>
+                  </div>
                 </div>
 
                 <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse border-t border-gray-100 gap-3">
@@ -336,7 +350,7 @@ export class VeilPageComponent {
        edge: '',
        price: 0,
        stock: 0,
-       image: `https://picsum.photos/seed/veil_${Math.random()}/200/200`
+       image: ''
     };
   }
 
@@ -383,5 +397,18 @@ export class VeilPageComponent {
 
   onImageLoad() {
     this.isImageLoading.set(false);
+  }
+  
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            // Update the tempVeil's image property to the base64 string for preview
+            this.tempVeil.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
   }
 }

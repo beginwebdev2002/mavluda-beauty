@@ -17,33 +17,39 @@
         theme: {
             extend: {
                 colors: {
-                    "primary": "#d4af35",
-                    "primary-hover": "#b8952a",
-                    "background-light": "#f8f7f6",
+                    "primary": "#D4AF37", // Gold
+                    "primary-hover": "#B5952F", // Darker Gold
+                    "background-light": "#FDFBF7",
                     "background-dark": "#0A0A0A",
                     "card-dark": "#121212",
-                    "background-card": "#121212",
-                    "gold-dim": "rgba(212, 175, 53, 0.1)",
-                    "gold": "#d4af35",
-                    "text-muted": "#8E8E8E"
+                    "surface-light": "#FFFFFF",
+                    "surface-dark": "#1E1E1E",
+                    "sidebar-dark": "#050505",
+                    "sidebar-active": "#1A1A1A",
+                    "text-main-light": "#111827",
+                    "text-main-dark": "#F3F4F6",
+                    "text-muted-light": "#6B7280",
+                    "text-muted-dark": "#9CA3AF",
+                    "gold": "#d4af35" // alias for compatibility
                 },
                 fontFamily: {
-                    display: ["Manrope", "sans-serif"],
-                    serif: ["Playfair Display", "serif"],
+                    display: ["Playfair Display", "serif"],
+                    serif: ["Playfair Display", "serif"], // Added for consistency
                     sans: ["Inter", "sans-serif"],
                     accent: ["Montserrat", "sans-serif"],
                 },
                 borderRadius: {
                     DEFAULT: "12px",
-                    'lg': "12px",
+                    'lg': '12px',
                     'xl': "16px",
-                    '2xl': '1rem',
-                    '3xl': '1.5rem',
+                    '2xl': '24px',
                     'full': "9999px"
                 },
                 boxShadow: {
+                    "card": "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
                     "gold": "0 4px 14px 0 rgba(212, 175, 53, 0.25)",
                     "gold-glow": "0 0 20px rgba(212, 175, 53, 0.4)",
+                    'glow': '0 0 15px rgba(212, 175, 55, 0.15)',
                 }
             },
         },
@@ -62,10 +68,10 @@
     .dark .luxury-gradient {
         background: radial-gradient(circle at center, #151515 0%, #050505 100%);
     }
-    input:focus {
+    input:focus, select:focus {
         border-color: #d4af35 !important;
         outline: none !important;
-        box-shadow: 0 0 0 1px #d4af35 !important;
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
     }
     .glass-telegram {
         background: rgba(255, 255, 255, 0.03);
@@ -109,7 +115,7 @@
         background: #d4af35; 
     }
     
-    .material-symbols-outlined {
+    .material-symbols-outlined, .material-icons-outlined {
       font-variation-settings:
       'FILL' 0,
       'wght' 300,
@@ -275,7 +281,7 @@
 }
 </script>
 </head>
-<body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-gray-100 overflow-x-hidden selection:bg-primary selection:text-background-dark">
+<body class="bg-background-light dark:bg-background-dark font-display text-text-main-light dark:text-text-main-dark overflow-x-hidden selection:bg-primary/30">
   <app-root></app-root>
 </body>
 </html>
