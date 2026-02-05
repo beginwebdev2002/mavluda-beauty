@@ -1,7 +1,7 @@
 
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject, effect, OnDestroy } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-user-layout',
@@ -111,10 +111,25 @@ import { CommonModule } from '@angular/common';
     </div>
   `
 })
-export class UserLayoutComponent {
+export class UserLayoutComponent implements OnDestroy {
+  private document = inject(DOCUMENT);
   isMobileMenuOpen = signal(false);
+
+  constructor() {
+    effect(() => {
+      if (this.isMobileMenuOpen()) {
+        this.document.body.style.overflow = 'hidden';
+      } else {
+        this.document.body.style.overflow = '';
+      }
+    });
+  }
 
   toggleMobileMenu() {
     this.isMobileMenuOpen.update(v => !v);
+  }
+
+  ngOnDestroy() {
+    this.document.body.style.overflow = '';
   }
 }
