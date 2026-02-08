@@ -16,24 +16,64 @@
     <div class="bg-white dark:bg-card-dark border border-gray-200 dark:border-white/10 rounded-2xl overflow-hidden shadow-2xl">
       <div class="flex border-b border-primary/30">
         <button 
-          (click)="setRole('client')"
+          (click)="setAuthMode('signin')"
           class="flex-1 py-4 text-sm font-semibold transition-colors"
-          [class]="authService.currentUserRole() === 'client' 
+          [class]="authMode() === 'signin' 
             ? 'text-primary' 
             : 'text-gray-500 hover:text-gray-700'">
-          Client Portal
+          Sign In
         </button>
         <button 
-          (click)="setRole('admin')"
+          (click)="setAuthMode('signup')"
           class="flex-1 py-4 text-sm font-semibold transition-colors"
-          [class]="authService.currentUserRole() === 'admin' 
+          [class]="authMode() === 'signup' 
             ? 'text-primary' 
             : 'text-gray-500 hover:text-gray-700'">
-          Admin Access
+          Sign Up
         </button>
       </div>
       <div class="p-8">
         <form class="space-y-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          
+          @if (authMode() === 'signup') {
+            <div class="grid grid-cols-2 gap-4 animate-slide-up">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="firstName">First Name</label>
+                    <div class="relative group">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors text-[18px]">person</span>
+                    <input class="w-full pl-10 pr-3 py-3 bg-gray-50 dark:bg-[#1C1C1C] border border-gray-200 dark:border-[#333] rounded-lg text-gray-900 dark:text-white placeholder:text-gray-500 transition-all text-sm" 
+                        id="firstName" 
+                        placeholder="Jane" 
+                        type="text"
+                        formControlName="firstName"/>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="lastName">Last Name</label>
+                    <div class="relative group">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors text-[18px]">person</span>
+                    <input class="w-full pl-10 pr-3 py-3 bg-gray-50 dark:bg-[#1C1C1C] border border-gray-200 dark:border-[#333] rounded-lg text-gray-900 dark:text-white placeholder:text-gray-500 transition-all text-sm" 
+                        id="lastName" 
+                        placeholder="Doe" 
+                        type="text"
+                        formControlName="lastName"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-2 animate-slide-up">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="phone">Phone Number</label>
+                <div class="relative group">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-primary transition-colors text-[20px]">call</span>
+                <input class="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-[#1C1C1C] border border-gray-200 dark:border-[#333] rounded-lg text-gray-900 dark:text-white placeholder:text-gray-500 transition-all" 
+                    id="phone" 
+                    placeholder="+992 00 000 0000" 
+                    type="tel"
+                    formControlName="phone"/>
+                </div>
+            </div>
+          }
+
           <div class="space-y-2">
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="email">Email Address</label>
             <div class="relative group">
@@ -65,7 +105,9 @@
               <input class="w-4 h-4 rounded border-gray-300 dark:border-white/30 text-primary focus:ring-primary bg-transparent" type="checkbox" formControlName="rememberMe"/>
               <span class="text-gray-600 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-gray-200 transition-colors">Remember me</span>
             </label>
-            <a class="text-primary font-medium hover:underline decoration-primary/30" href="#">Forgot password?</a>
+            @if (authMode() === 'signin') {
+                <a class="text-primary font-medium hover:underline decoration-primary/30" href="#">Forgot password?</a>
+            }
           </div>
 
           <button class="w-full bg-primary hover:bg-[#C5A02E] text-black py-4 rounded-lg font-bold flex items-center justify-center space-x-2 transition-all transform hover:scale-[1.01] active:scale-[0.99] btn-glow disabled:opacity-70 disabled:cursor-wait btn-primary-shimmer" type="submit" [disabled]="isLoading()">
@@ -74,9 +116,9 @@
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <span>Signing In...</span>
+                <span>{{ authMode() === 'signin' ? 'Signing In...' : 'Creating Account...' }}</span>
             } @else {
-              <span>Sign In</span>
+              <span>{{ authMode() === 'signin' ? 'Sign In' : 'Create Account' }}</span>
               <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
             }
           </button>

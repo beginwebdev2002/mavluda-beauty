@@ -25,15 +25,56 @@ export class AuthComponent {
   isLoading = signal(false);
   showPassword = signal(false);
   isDarkMode = signal(this.document.documentElement.classList.contains('dark'));
+  
+  // 'signin' or 'signup' mode
+  authMode = signal<'signin' | 'signup'>('signin');
 
   loginForm = this.fb.group({
+    firstName: [''],
+    lastName: [''],
+    phone: [''],
     email: ['admin@mavluda.beauty', [Validators.required, Validators.email]],
     password: ['password123', [Validators.required, Validators.minLength(6)]],
     rememberMe: [false]
   });
 
-  setRole(role: 'admin' | 'client') {
-    this.authService.currentUserRole.set(role);
+  setAuthMode(mode: 'signin' | 'signup') {
+    this.authMode.set(mode);
+    const firstNameControl = this.loginForm.get('firstName');
+    const lastNameControl = this.loginForm.get('lastName');
+    const phoneControl = this.loginForm.get('phone');
+
+    if (mode === 'signup') {
+      firstNameControl?.setValidators([Validators.required]);
+      lastNameControl?.setValidators([Validators.required]);
+      phoneControl?.setValidators([Validators.required]);
+
+      // Clear defaults for signup
+      if (this.loginForm.get('email')?.value === 'admin@mavluda.beauty') {
+        this.loginForm.patchValue({
+          firstName: '',
+          lastName: '',
+          phone: '',
+          email: '',
+          password: ''
+        });
+      }
+    } else {
+      firstNameControl?.clearValidators();
+      lastNameControl?.clearValidators();
+      phoneControl?.clearValidators();
+
+      // Restore default admin credentials for demo convenience if empty
+      if (!this.loginForm.get('email')?.value) {
+        this.loginForm.patchValue({
+          email: 'admin@mavluda.beauty',
+          password: 'password123'
+        });
+      }
+    }
+    firstNameControl?.updateValueAndValidity();
+    lastNameControl?.updateValueAndValidity();
+    phoneControl?.updateValueAndValidity();
   }
 
   togglePassword() {
@@ -54,6 +95,15 @@ export class AuthComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.isLoading.set(true);
+      
+      // Auto-determine role based on email credential for MVP demo
+      const email = this.loginForm.get('email')?.value || '';
+      if (email.includes('admin')) {
+          this.authService.currentUserRole.set('admin');
+      } else {
+          this.authService.currentUserRole.set('client');
+      }
+
       // Simulate API call
       setTimeout(() => {
         this.isLoading.set(false);
